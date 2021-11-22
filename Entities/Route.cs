@@ -4,7 +4,7 @@ using static Entities.StationOfRoute;
 #nullable disable
 
 namespace Entities
-{//test
+{//test//
     public partial class Route
     {
         public Route()
