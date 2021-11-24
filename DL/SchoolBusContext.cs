@@ -1,8 +1,7 @@
 ﻿using System;
-using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
+using Entities;
 #nullable disable
 
 namespace DL
@@ -29,6 +28,7 @@ namespace DL
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentStatus> StudentStatuses { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserType> UserTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -140,10 +140,20 @@ namespace DL
                     .WithMany(p => p.Messeges)
                     .HasForeignKey(d => d.MessageTypeId)
                     .HasConstraintName("FK_Messeges_MessageType");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Messeges)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Messeges_Users");
             });
 
             modelBuilder.Entity<Route>(entity =>
             {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.HasOne(d => d.Driver)
                     .WithMany(p => p.Routes)
                     .HasForeignKey(d => d.DriverId)
@@ -161,10 +171,10 @@ namespace DL
             {
                 entity.ToTable("StationOfRoute");
 
-                entity.HasIndex(e => e.Id, "IX_StationOfRoute")
+                entity.HasIndex(e => e.StationOfRouteId, "IX_StationOfRoute")
                     .IsUnique();
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.StationOfRouteId).ValueGeneratedNever();
 
                 entity.HasOne(d => d.Route)
                     .WithMany(p => p.StationOfRoutes)
@@ -223,9 +233,11 @@ namespace DL
 
             modelBuilder.Entity<StudentStatus>(entity =>
             {
-                entity.HasKey(e => e.Id);
-
                 entity.ToTable("StudentStatus");
+
+                entity.Property(e => e.GetOffImage).HasColumnType("image");
+
+                entity.Property(e => e.GetOnImage).HasColumnType("image");
 
                 entity.HasOne(d => d.StatusType)
                     .WithMany(p => p.StudentStatuses)
@@ -241,7 +253,26 @@ namespace DL
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasOne(d => d.UserType)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.UserTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Users_UserType");
+            });
+
+            modelBuilder.Entity<UserType>(entity =>
+            {
+                entity.ToTable("UserType");
+
+                entity.Property(e => e.Type)
                     .IsRequired()
                     .HasMaxLength(50);
             });

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using static Entities.StationOfRoute;
+
 #nullable disable
 
 namespace Entities
-{//test//////
+{
     public partial class Route
     {
         public Route()
@@ -14,6 +14,7 @@ namespace Entities
         }
 
         public int Id { get; set; }
+        public string Name { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan AssumEndTime { get; set; }
         public bool Direction { get; set; }
