@@ -17,9 +17,8 @@ namespace DL
         }
         public async Task<User> GetUser(string email, string password)
         {
-            var res = await schoolBusContext.Users.SingleOrDefaultAsync( u => u.Email== email &&u.Password== password);
-            if (res == null)
-                return null;
+            var res = await schoolBusContext.Users.SingleOrDefaultAsync( u => u.Email== email && u.Password== password);
+       
             return res;
         }
     }
