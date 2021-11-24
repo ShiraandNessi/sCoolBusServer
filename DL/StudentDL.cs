@@ -18,15 +18,15 @@ namespace DL
 
         public async Task<List<Student>> GetAllStudents()
         {
-            return await SchoolBusContext.Student.ToListAsync();
+            return await SchoolBusContext.Students.ToListAsync();
         }
         public async Task<Student> GetStudentById(int id)
         {
-            return await SchoolBusContext.Student.FirstAsync();
+            return await SchoolBusContext.Students.FirstAsync();
         }
         public async Task<int> AddNewStudent(Student student)
         {
-            await SchoolBusContext.Student.AddAsync(student);
+            await SchoolBusContext.Students.AddAsync(student);
             return await SchoolBusContext.SaveChangesAsync();
         }
     }
