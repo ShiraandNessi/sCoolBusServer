@@ -7,6 +7,6 @@ namespace BL
     public interface IMessegeBL
     {
         Task<List<Messege>> GetAllMesseges();
-        Task AddNewMessege(Messege newMessege);
+        Task<int> AddNewMessege(Messege newMessege);
     }
 }

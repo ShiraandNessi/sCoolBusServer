@@ -15,9 +15,9 @@ namespace SchoolBus.Controllers
     public class MessegeController : ControllerBase
     {
         IMessegeBL IMessegeBL;
-        public MessegeController(IMessegeBL IMessegesBL)
+        public MessegeController(IMessegeBL IMessegeBL)
         {
-            this.IMessegeBL = IMessegesBL;
+            this.IMessegeBL = IMessegeBL;
         }
 
         // GET: api/<MessegesController>
@@ -30,9 +30,9 @@ namespace SchoolBus.Controllers
        
         // POST api/<MessegesController>
         [HttpPost]
-        public async Task Post([FromBody] Messege newMessege)
+        public async Task<int> Post([FromBody] Messege newMessege)
         {
-             await IMessegeBL.AddNewMessege(newMessege);
+             return await IMessegeBL.AddNewMessege(newMessege);
         }
 
        

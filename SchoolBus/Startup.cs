@@ -31,7 +31,10 @@ namespace SchoolBus
         
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IStudentDL, StudentDL>();
+            services.AddScoped<IStudentBL, StudentBL>();
+            services.AddScoped<IMessegeDL, MessegeDL>();
+            services.AddScoped<IMessegeBL, MessegeBL>();
             services.AddScoped<IUserDL, UserDL>();
             services.AddScoped<IUserBL, UserBL>();
             services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(

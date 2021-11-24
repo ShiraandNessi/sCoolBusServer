@@ -9,21 +9,21 @@ namespace BL
 {
     public class MessegeBL : IMessegeBL
     {
-        IMessegeDL IMessegesDL;
-        public MessegeBL(IMessegeDL IMessegesDL)
+        IMessegeDL IMessegeDL;
+        public MessegeBL(IMessegeDL IMessegeDL)
         {
-            this.IMessegesDL = IMessegesDL;
+            this.IMessegeDL = IMessegeDL;
 
         }
 
         public async Task<List<Messege>> GetAllMesseges()
         {
-            return await IMessegesDL.GetAllMesseges();
+            return await IMessegeDL.GetAllMesseges();
         }
 
-        public async Task AddNewMessege(Messege newMessege)
+        public async Task<int> AddNewMessege(Messege newMessege)
         {
-             await IMessegeDL.AddNewMessege(newMessege);
+            return await IMessegeDL.AddNewMessege(newMessege);
         }
     }
 }
