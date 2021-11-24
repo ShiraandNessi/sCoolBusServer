@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace Entities
 {
-    public partial class MessageType
+    public partial class UserType
     {
-        public MessageType()
+        public UserType()
         {
-            Messeges = new HashSet<Messege>();
+            Users = new HashSet<User>();
         }
 
         public int Id { get; set; }
         public string Type { get; set; }
 
-        public virtual ICollection<Messege> Messeges { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

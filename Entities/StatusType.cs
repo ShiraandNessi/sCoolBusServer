@@ -12,7 +12,7 @@ namespace Entities
             StudentStatuses = new HashSet<StudentStatus>();
         }
 
-        public int StatusTypeId { get; set; }
+        public int Id { get; set; }
         public string Type { get; set; }
 
         public virtual ICollection<StudentStatus> StudentStatuses { get; set; }

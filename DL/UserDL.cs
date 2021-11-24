@@ -20,10 +20,6 @@ namespace DL
             var res = await schoolBusContext.Users.SingleOrDefaultAsync( u => u.Email== email &&u.Password== password);
             if (res == null)
                 return null;
-            //else
-            //{
-            //   ( List< DbSet<User>>)(res).Fin
-            //}
             return res;
         }
     }
