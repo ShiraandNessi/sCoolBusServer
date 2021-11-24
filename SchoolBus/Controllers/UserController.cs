@@ -14,10 +14,10 @@ namespace SchoolBus.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        IUserBL IUserBl;
-        public UserController(IUserBL IUserBl)
+        IUserBL IUserBL;
+        public UserController(IUserBL IUserBL)
         {
-            this.IUserBl = IUserBl;
+            this.IUserBL = IUserBL;
         }
 
 
@@ -25,7 +25,7 @@ namespace SchoolBus.Controllers
         [HttpGet("{email}/{password}")]
         public async Task<User> Get(string email, string password)
         {
-            return await IUserBl.GetUser(email, password);
+            return await IUserBL.GetUser(email, password);
         }
     }
 }

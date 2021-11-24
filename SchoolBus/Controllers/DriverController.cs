@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BL;
+using Entities;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,16 @@ namespace SchoolBus.Controllers
     [ApiController]
     public class DriverController : ControllerBase
     {
+        DriverBL DriverBL;
+        public DriverController(DriverBL DriverBL)
+        {
+            this.DriverBL = DriverBL;
+        }
         // GET: api/<DriverController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<Driver>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await DriverBL.GatAllDrivers();
         }
 
         // GET api/<DriverController>/5
