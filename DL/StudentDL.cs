@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Entities;
 namespace DL
 {
     public class StudentDL : IStudentDL
@@ -23,6 +23,11 @@ namespace DL
         public async Task<Student> GetStudentById(int id)
         {
             return await SchoolBusContext.Students.FirstAsync();
+        }
+        public async Task<int> AddNewStudent(Student student)
+        {
+            await SchoolBusContext.Students.AddAsync(student);
+            return await SchoolBusContext.SaveChangesAsync();
         }
     }
 }

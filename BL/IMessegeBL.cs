@@ -8,5 +8,6 @@ namespace BL
     {
         Task<List<Messege>> GetAllMesseges();
         Task<int> AddNewMessege(Messege newMessege);
+        
     }
 }
