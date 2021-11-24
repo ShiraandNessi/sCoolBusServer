@@ -17,8 +17,8 @@ namespace DL
         }
         public async Task<List<Driver>> GetAllDrivers()
         {
-            return await SchoolBusContext.Drivers.ToListAsync();
-
+             List<Driver> l=await SchoolBusContext.Drivers.ToListAsync();
+            return l;
         }
         public async Task<Driver> GetDriverById(int id)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -18,11 +19,14 @@ namespace Entities
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        [JsonIgnore]
         public int? UserId { get; set; }
         
-
+        [JsonIgnore]
         public virtual User User { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Messege> Messeges { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Route> Routes { get; set; }
     }
 }

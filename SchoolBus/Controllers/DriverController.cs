@@ -14,30 +14,30 @@ namespace SchoolBus.Controllers
     [ApiController]
     public class DriverController : ControllerBase
     {
-        DriverBL DriverBL;
-        public DriverController(DriverBL DriverBL)
+        IDriverBL IDriverBL;
+        public DriverController(IDriverBL IDriverBL)
         {
-            this.DriverBL = DriverBL;
+            this.IDriverBL = IDriverBL;
         }
         // GET: api/<DriverController>
         [HttpGet]
         public async Task<List<Driver>> Get()
         {
-            return await DriverBL.GatAllDrivers();
+            return await IDriverBL.GatAllDrivers();
         }
 
         // GET api/<DriverController>/5
         [HttpGet("{id}")]
         public async Task<Driver> Get(int id)
         {
-            return await DriverBL.GatDriverById(id);
+            return await IDriverBL.GatDriverById(id);
         }
 
         // POST api/<DriverController>
-        [HttpPost("{passsword}")]
+        [HttpPost]
         public async Task<int> Post(string passsword,[FromBody] Driver newDriver)
         {
-           return await DriverBL.AddNewDriver(newDriver, passsword);
+           return await IDriverBL.AddNewDriver(newDriver, passsword);
         }
 
         // PUT api/<DriverController>/5

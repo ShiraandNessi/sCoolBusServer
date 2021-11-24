@@ -11,26 +11,26 @@ namespace BL
     public class DriverBL : IDriverBL
    
     {
-        DriverDL DriverDL;
+        IDriverDL IDriverDL;
         IUserDL IUserDL;
-        public DriverBL(DriverDL DriverDL, IUserDL IUserDL)
+        public DriverBL(IDriverDL IDriverDL, IUserDL IUserDL)
         {
-            this.DriverDL = DriverDL;
+            this.IDriverDL = IDriverDL;
             this.IUserDL = IUserDL;
         }
         public async Task<List<Driver>> GatAllDrivers()
         {
-            return await DriverDL.GetAllDrivers();
+            return await IDriverDL.GetAllDrivers();
         }
         public async Task<Driver> GatDriverById(int id)
         {
-            return await DriverDL.GetDriverById(id);
+            return await IDriverDL.GetDriverById(id);
         }
         public async Task<int> AddNewDriver(Driver newDriver, string passsword)
         {
             int newDriverId = await IUserDL.AddNewDriverUser(newDriver, passsword);
             newDriver.UserId = newDriverId;
-            return await DriverDL.AddNewDriver(newDriver);
+            return await IDriverDL.AddNewDriver(newDriver);
            
         }
     }
