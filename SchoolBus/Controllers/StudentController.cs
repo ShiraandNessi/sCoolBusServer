@@ -35,8 +35,9 @@ namespace SchoolBus.Controllers
 
         // POST api/<StudentController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<int> Post([FromBody] Student student)
         {
+            return await IStudentBL.AddNewStudent(student);
         }
 
         // PUT api/<StudentController>/5
@@ -45,10 +46,5 @@ namespace SchoolBus.Controllers
         {
         }
 
-        // DELETE api/<StudentController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

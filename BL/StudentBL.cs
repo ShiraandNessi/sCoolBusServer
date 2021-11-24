@@ -25,5 +25,9 @@ namespace BL
         {
             return await IStudentDL.GetStudentById(id);
         }
+        public async Task<int> AddNewStudent(Student student)
+        {
+            return await IStudentBL.AddNewStudent(student);
+        }
     }
 }
