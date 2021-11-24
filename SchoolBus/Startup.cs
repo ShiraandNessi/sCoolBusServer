@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DL;
+using BL;
 
 namespace SchoolBus
 {
@@ -31,10 +32,10 @@ namespace SchoolBus
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddScoped<IUserDL, UserDL>();
+            services.AddScoped<IUserBL, UserBL>();
             services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(
-                           "Server=mbyserver2\\pupils;Database=Manager;Trusted_Connection=True;"), ServiceLifetime.Scoped);
-
-            //services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer("Data Source=Desktop-V6KSTL4; Initial Catalog=SchoolBusContext; Integrated Security=True;Pooling=Flase"));
+                           "Server=srv2\\pupils;Database=SchoolBus;Trusted_Connection=True;"), ServiceLifetime.Scoped);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
