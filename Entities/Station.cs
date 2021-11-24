@@ -13,7 +13,7 @@ namespace Entities
             StationOfRoutes = new HashSet<StationOfRoute>();
         }
 
-        public int StationId { get; set; }
+        public int Id { get; set; }
         public string Address { get; set; }
         public double PointX { get; set; }
         public double PointY { get; set; }

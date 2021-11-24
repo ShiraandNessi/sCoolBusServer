@@ -7,7 +7,7 @@ namespace Entities
 {
     public partial class Messege
     {
-        public int MessegeId { get; set; }
+        public int Id { get; set; }
         public int? MessageTypeId { get; set; }
         public int DriverId { get; set; }
         public string MessageText { get; set; }

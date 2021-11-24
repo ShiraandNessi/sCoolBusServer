@@ -13,7 +13,7 @@ namespace Entities
             Students = new HashSet<Student>();
         }
 
-        public int RouteId { get; set; }
+        public int Id { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan AssumEndTime { get; set; }
         public bool Direction { get; set; }

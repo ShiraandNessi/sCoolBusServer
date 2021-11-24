@@ -7,7 +7,7 @@ namespace Entities
 {
     public partial class StudentStatus
     {
-        public int StatusId { get; set; }
+        public int Id { get; set; }
         public int Studentid { get; set; }
         public int? StatusTypeId { get; set; }
         public bool? GetAlert { get; set; }

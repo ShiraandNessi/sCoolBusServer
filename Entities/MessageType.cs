@@ -12,7 +12,7 @@ namespace Entities
             Messeges = new HashSet<Messege>();
         }
 
-        public int MessageTypeId { get; set; }
+        public int Id { get; set; }
         public string Type { get; set; }
 
         public virtual ICollection<Messege> Messeges { get; set; }

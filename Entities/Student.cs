@@ -12,7 +12,7 @@ namespace Entities
             StudentStatuses = new HashSet<StudentStatus>();
         }
 
-        public int StudentId { get; set; }
+        public int Id { get; set; }
         public int FamilyId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
