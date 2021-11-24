@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace DL
         }
         public async Task<User> GetUser(string email, string password)
         {
-            var res = await schoolBusContext.Users.FindAsync(email, password);
+            var res = await schoolBusContext.Users.SingleOrDefaultAsync( u => u.Email== email &&u.Password== password);
             if (res == null)
                 return null;
             //else

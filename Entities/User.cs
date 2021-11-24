@@ -15,7 +15,7 @@ namespace Entities
 
         public int UserId { get; set; }
         public string Password { get; set; }
-
+        public string Email { get; set; }
         public virtual ICollection<Driver> Drivers { get; set; }
         public virtual ICollection<Family> Families { get; set; }
     }
