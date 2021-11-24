@@ -31,6 +31,7 @@ namespace BL
             int newDriverId = await IUserDL.AddNewDriverUser(newDriver, passsword);
             newDriver.UserId = newDriverId;
             return await IDriverDL.AddNewDriver(newDriver);
+
            
         }
     }
