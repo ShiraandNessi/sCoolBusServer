@@ -28,15 +28,16 @@ namespace SchoolBus.Controllers
 
         // GET api/<DriverController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Driver> Get(int id)
         {
-            return "value";
+            return await DriverBL.GatDriverById(id);
         }
 
         // POST api/<DriverController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("{passsword}")]
+        public async Task<int> Post(string passsword,[FromBody] Driver newDriver)
         {
+           return await DriverBL.AddNewDriver(newDriver, passsword);
         }
 
         // PUT api/<DriverController>/5

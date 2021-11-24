@@ -21,5 +21,21 @@ namespace DL
        
             return res;
         }
+        public async Task<int> AddNewFamilyUser(Family newFamily, string password)
+        {
+            User newUser = new User() { Email = newFamily.Email, Password = password, UserTypeId = (int)UserTypeEnum.Driver };
+            await schoolBusContext.Users.AddAsync(newUser);
+            return await schoolBusContext.SaveChangesAsync();
+        }
+        
+        public async Task<int> AddNewDriverUser(Driver newDriver,string password)
+        {
+
+            User newUser = new User() { Email = newDriver.Email, Password = password, UserTypeId = (int)UserTypeEnum.Driver };
+            await schoolBusContext.Users.AddAsync(newUser);
+            return await schoolBusContext.SaveChangesAsync();
+
+
+        }
     }
 }

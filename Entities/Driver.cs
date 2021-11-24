@@ -18,7 +18,8 @@ namespace Entities
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
+        
 
         public virtual User User { get; set; }
         public virtual ICollection<Messege> Messeges { get; set; }

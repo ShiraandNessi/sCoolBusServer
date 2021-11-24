@@ -34,6 +34,8 @@ namespace SchoolBus
 
             services.AddScoped<IUserDL, UserDL>();
             services.AddScoped<IUserBL, UserBL>();
+            services.AddScoped<IDriverDL, DriverDL>();
+            services.AddScoped<IDriverBL, DriverBL>();
             services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(
                            "Server=srv2\\pupils;Database=SchoolBus;Trusted_Connection=True;"), ServiceLifetime.Scoped);
             services.AddControllers();

@@ -20,10 +20,11 @@ namespace Entities
         public string MotherPhone { get; set; }
         public string FatherPhone { get; set; }
         public string Email { get; set; }
+
         public bool EnableMotherWhatsApp { get; set; }
         public bool EnableFatherWhatsApp { get; set; }
         public int StationId { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         public virtual Station Station { get; set; }
         public virtual User User { get; set; }
