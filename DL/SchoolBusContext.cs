@@ -45,7 +45,7 @@ namespace DL
 
             modelBuilder.Entity<Driver>(entity =>
             {
-                entity.HasIndex(e => e.DriverId, "IX_Drivers")
+                entity.HasIndex(e => e.Id, "IX_Drivers")
                     .IsUnique();
 
                 entity.Property(e => e.Email)
@@ -73,7 +73,7 @@ namespace DL
 
             modelBuilder.Entity<Family>(entity =>
             {
-                entity.HasIndex(e => e.FamilyId, "IX_Families")
+                entity.HasIndex(e => e.Id, "IX_Families")
                     .IsUnique();
 
                 entity.Property(e => e.Address)
@@ -161,10 +161,10 @@ namespace DL
             {
                 entity.ToTable("StationOfRoute");
 
-                entity.HasIndex(e => e.StationOfRouteId, "IX_StationOfRoute")
+                entity.HasIndex(e => e.Id, "IX_StationOfRoute")
                     .IsUnique();
 
-                entity.Property(e => e.StationOfRouteId).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.HasOne(d => d.Route)
                     .WithMany(p => p.StationOfRoutes)
@@ -223,7 +223,7 @@ namespace DL
 
             modelBuilder.Entity<StudentStatus>(entity =>
             {
-                entity.HasKey(e => e.StatusId);
+                entity.HasKey(e => e.Id);
 
                 entity.ToTable("StudentStatus");
 
