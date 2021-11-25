@@ -6,7 +6,7 @@ namespace DL
 {
     public interface IMessegeDL
     {
-        Task<List<Messege>> GetAllMessegesByDriverId(int id);
+        Task<List<Messege>> GetAllMessegesByDriverId(int driverId);
          Task<Messege> AddNewMessege(Messege newMessege);
     }
 }

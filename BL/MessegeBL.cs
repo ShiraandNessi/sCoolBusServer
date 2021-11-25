@@ -16,9 +16,9 @@ namespace BL
 
         }
 
-        public async Task<List<Messege>> GetAllMessegesByDriverId(int id)
+        public async Task<List<Messege>> GetAllMessegesByDriverId(int driverId)
         {
-            return await IMessegeDL.GetAllMessegesByDriverId(id);
+            return await IMessegeDL.GetAllMessegesByDriverId(driverId);
         }
 
         public async Task<Messege> AddNewMessege(Messege newMessege)

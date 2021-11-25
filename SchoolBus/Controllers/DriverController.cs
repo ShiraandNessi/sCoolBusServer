@@ -42,9 +42,13 @@ namespace SchoolBus.Controllers
 
         // PUT api/<DriverController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task Put(int id, [FromBody] Driver driverToUpdate,string password,  string newPassword)
         {
+            await IDriverBL.changeDriverdetails(id, driverToUpdate, password, newPassword);
         }
+        
+
+        
 
         // DELETE api/<DriverController>/5
         [HttpDelete("{id}")]

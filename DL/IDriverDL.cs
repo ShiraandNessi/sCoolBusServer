@@ -9,5 +9,6 @@ namespace DL
         Task<List<Driver>> GetAllDrivers();
         public Task<Driver> GetDriverById(int id);
         public Task<Driver> AddNewDriver(Driver newDriver);
+        public Task changeDriverdetails(Driver driverToUpdate);
     }
 }

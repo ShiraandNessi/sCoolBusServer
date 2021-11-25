@@ -16,9 +16,9 @@ namespace DL
             this.SchoolBusContext = SchoolBusContext;
         }
 
-        public async Task<List<Messege>> GetAllMessegesByDriverId(int id)
+        public async Task<List<Messege>> GetAllMessegesByDriverId(int driverId)
         {
-            return await SchoolBusContext.Messeges.Where(messege=>messege.DriverId== id).ToListAsync();
+            return await SchoolBusContext.Messeges.Where(messege=>messege.DriverId== driverId).ToListAsync();
 
         }
 

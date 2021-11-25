@@ -6,7 +6,7 @@ namespace BL
 {
     public interface IMessegeBL
     {
-        Task<List<Messege>> GetAllMessegesByDriverId(int id);
+        Task<List<Messege>> GetAllMessegesByDriverId(int driverId);
         Task<Messege> AddNewMessege(Messege newMessege);
         
     }
