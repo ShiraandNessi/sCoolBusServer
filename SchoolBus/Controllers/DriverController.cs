@@ -35,7 +35,7 @@ namespace SchoolBus.Controllers
 
         // POST api/<DriverController>
         [HttpPost]
-        public async Task<int> Post(string passsword,[FromBody] Driver newDriver)
+        public async Task<Driver> Post(string passsword,[FromBody] Driver newDriver)
         {
            return await IDriverBL.AddNewDriver(newDriver, passsword);
         }
