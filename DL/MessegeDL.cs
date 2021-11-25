@@ -22,10 +22,11 @@ namespace DL
 
         }
 
-        public async Task<int> AddNewMessege(Messege newMessege)
+        public async Task<Messege> AddNewMessege(Messege newMessege)
         {
             await SchoolBusContext.Messeges.AddAsync(newMessege);
-           return await SchoolBusContext.SaveChangesAsync();
+                await SchoolBusContext.SaveChangesAsync();
+            return newMessege;
         }
     }
 }

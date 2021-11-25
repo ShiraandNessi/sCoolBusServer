@@ -11,13 +11,13 @@ namespace Entities
         public int Id { get; set; }
         [JsonIgnore]
         public int? MessageTypeId { get; set; }
-        [JsonIgnore]
+        
         public int DriverId { get; set; }
         [JsonIgnore]
         public string MessageText { get; set; }
         [JsonIgnore]
         public int RoutId { get; set; }
-        [JsonIgnore]
+       
         public int UserId { get; set; }
         [JsonIgnore]
         public virtual Driver Driver { get; set; }

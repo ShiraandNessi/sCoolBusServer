@@ -30,7 +30,7 @@ namespace SchoolBus.Controllers
        
         // POST api/<MessegesController>
         [HttpPost]
-        public async Task<int> Post([FromBody] Messege newMessege)
+        public async Task<Messege> Post([FromBody] Messege newMessege)
         {
              return await IMessegeBL.AddNewMessege(newMessege);
         }
