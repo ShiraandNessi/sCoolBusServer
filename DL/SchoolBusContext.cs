@@ -20,7 +20,7 @@ namespace DL
         public virtual DbSet<Driver> Drivers { get; set; }
         public virtual DbSet<Family> Families { get; set; }
         public virtual DbSet<MessageType> MessageTypes { get; set; }
-        public virtual DbSet<Messege> Messege { get; set; }
+        public virtual DbSet<Messege> Messeges { get; set; }
         public virtual DbSet<Route> Routes { get; set; }
         public virtual DbSet<Station> Stations { get; set; }
         public virtual DbSet<StationOfRoute> StationOfRoutes { get; set; }

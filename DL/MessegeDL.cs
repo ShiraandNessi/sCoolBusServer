@@ -16,15 +16,15 @@ namespace DL
             this.SchoolBusContext = SchoolBusContext;
         }
 
-        public async Task<List<Messege>> GetAllMesseges()
+        public async Task<List<Messege>> GetAllMessegesByDriverId(int id)
         {
-            return await SchoolBusContext.Messege.ToListAsync();
+            return await SchoolBusContext.Messeges.Where(messege=>messege.DriverId== id).ToListAsync();
 
         }
 
         public async Task<int> AddNewMessege(Messege newMessege)
         {
-            await SchoolBusContext.Messege.AddAsync(newMessege);
+            await SchoolBusContext.Messeges.AddAsync(newMessege);
            return await SchoolBusContext.SaveChangesAsync();
         }
     }

@@ -21,10 +21,10 @@ namespace SchoolBus.Controllers
         }
 
         // GET: api/<MessegesController>
-        [HttpGet]
-        public async Task<List<Messege>> Get()
+        [HttpGet("{id}")]
+        public async Task<List<Messege>> Get(int id)
         {
-            return await IMessegeBL.GetAllMesseges();
+            return await IMessegeBL.GetAllMessegesByDriverId(id);
         }
 
        
