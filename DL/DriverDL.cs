@@ -27,7 +27,8 @@ namespace DL
         public async Task<Driver> AddNewDriver(Driver newDriver)
         {
             await SchoolBusContext.Drivers.AddAsync(newDriver);
-           return  await  SchoolBusContext.SaveChangesAsync();
+           await  SchoolBusContext.SaveChangesAsync();
+            return newDriver;
         }
     }
 }
