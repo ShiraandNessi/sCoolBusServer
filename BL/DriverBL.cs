@@ -26,10 +26,10 @@ namespace BL
         {
             return await IDriverDL.GetDriverById(id);
         }
-        public async Task<int> AddNewDriver(Driver newDriver, string passsword)
+        public async Task<Driver> AddNewDriver(Driver newDriver, string passsword)
         {
-            int newDriverId = await IUserDL.AddNewDriverUser(newDriver, passsword);
-            newDriver.UserId = newDriverId;
+            User newUser = await IUserDL.AddNewDriverUser(newDriver, passsword);
+            newDriver.UserId = newUser.Id;
             return await IDriverDL.AddNewDriver(newDriver);
 
            
