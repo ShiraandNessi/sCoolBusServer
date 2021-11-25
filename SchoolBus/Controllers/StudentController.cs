@@ -35,15 +35,16 @@ namespace SchoolBus.Controllers
 
         // POST api/<StudentController>
         [HttpPost]
-        public async Task<int> Post([FromBody] Student student)
+        public async Task<Student> Post([FromBody] Student newStudent)
         {
-            return await IStudentBL.AddNewStudent(student);
+            return await IStudentBL.AddNewStudent(newStudent);
         }
 
         // PUT api/<StudentController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task Put(int id, [FromBody] Student correntStudent)
         {
+            await IStudentBL.changeStudentDetailes(correntStudent);
         }
 
     }
