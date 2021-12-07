@@ -10,5 +10,6 @@ namespace DL
         Task<Student> GetStudentById(int id);
         Task<int> AddNewStudent(Student student);
         Task<List<Student>> GetStudentByFamilyId(int familyId);
+        public Task changeStudentDetails(int id, Student studentToUpdate);
     }
 }

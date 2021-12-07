@@ -33,5 +33,11 @@ namespace DL
         {
             return await SchoolBusContext.Students.Where(student => student.FamilyId == familyId).ToListAsync();
         }
+        public async Task changeStudentdetails(int id, Student studentToUpdate)
+        {
+            Student student = await SchoolBusContext.Students.FindAsync(id);
+            SchoolBusContext.Entry(student).CurrentValues.SetValues(studentToUpdate);
+            await SchoolBusContext.SaveChangesAsync();
+        }
     }
 }

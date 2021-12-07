@@ -9,7 +9,7 @@ using BL;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SchoolBus.Controllers
-{//xxxccc
+{
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -42,8 +42,9 @@ namespace SchoolBus.Controllers
 
         // PUT api/<StudentController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task Put(int id, [FromBody] Student StudentToUpdate)
         {
+            await IStudentBL.changeStudentDetails(id, StudentToUpdate);
         }
 
         //[Route("[action]/{familyId}")]
