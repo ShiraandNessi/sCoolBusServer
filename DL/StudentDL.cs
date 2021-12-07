@@ -29,5 +29,9 @@ namespace DL
             await SchoolBusContext.Students.AddAsync(student);
             return await SchoolBusContext.SaveChangesAsync();
         }
+        public async Task<List<Student>> GetStudentByFamilyId(int familyId)
+        {
+            return await SchoolBusContext.Students.Where(student => student.FamilyId == familyId).ToListAsync();
+        }
     }
 }

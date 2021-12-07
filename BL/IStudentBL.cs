@@ -9,5 +9,6 @@ namespace BL
         Task<List<Student>> GetAllStudents();
         Task<Student> GetStudentById(int id);
         Task<int> AddNewStudent(Student student);
+        Task<List<Student>> GetStudentByFamilyId(int familyId);
     }
 }

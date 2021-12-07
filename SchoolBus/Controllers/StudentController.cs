@@ -26,7 +26,7 @@ namespace SchoolBus.Controllers
             return await IStudentBL.GetAllStudents();
         }
 
-        // GET api/<StudentController>/5
+       // GET api/<StudentController>
         [HttpGet("{id}")]
         public async Task<Student> Get(int id)
         {
@@ -45,6 +45,20 @@ namespace SchoolBus.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
+
+        //[Route("[action]/{familyId}")]
+        //public async Task<List<Student>> GetStudentByFamilyId(int familyId)
+        //{
+        //    return await IStudentBL.GetStudentByFamilyId(familyId);
+        //}
+
+
+
+        //[HttpGet("{id}")]
+        //public async Task<List<Student>> Get(int id)
+        //{
+        //    return await IStudentBL.GetStudentByFamilyId(id);
+        //}
 
     }
 }
