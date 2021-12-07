@@ -36,7 +36,7 @@ namespace BL
         }
         public async Task changeDriverdetails(int id,Driver driverToUpdate, string password, string newPassword)
         {
-            await IUserDL.changeUserdetails(driverToUpdate.UserId, password, newPassword);
+            await IUserDL.changeUserdetails(driverToUpdate.UserId, password, newPassword, driverToUpdate.Email);
             await IDriverDL.changeDriverdetails(id,driverToUpdate);
 
         }
