@@ -30,9 +30,10 @@ namespace DL
              await  SchoolBusContext.SaveChangesAsync();
             return newDriver;
         }
-        public async Task changeDriverdetails( Driver driverToUpdate)
+        public async Task changeDriverdetails(int id, Driver driverToUpdate)
         {
-            SchoolBusContext.Drivers.Update(driverToUpdate);
+            Driver driver = await SchoolBusContext.Drivers.FindAsync(id);
+            driver = driverToUpdate;
             await SchoolBusContext.SaveChangesAsync();
         }
     }

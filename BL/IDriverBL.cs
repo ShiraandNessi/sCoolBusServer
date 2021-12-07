@@ -9,7 +9,7 @@ namespace BL
         Task<List<Driver>> GatAllDrivers();
         public Task<Driver> GatDriverById(int id);
         public Task<Driver> AddNewDriver(Driver newDriver, string passsword);
-        public Task changeDriverdetails( Driver driverToUpdate, string password, string newPassword);
+        public Task changeDriverdetails(int id,Driver driverToUpdate, string password, string newPassword);
 
     }
 }

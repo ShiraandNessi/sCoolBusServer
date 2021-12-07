@@ -38,10 +38,15 @@ namespace DL
             return newUser;
 
         }
-        public async Task changeDriverdetails(int idDriverToUpdate, string password, string newPassword)
+    
+        public async Task changeUserdetails(int? userId, string password, string newPassword)
         {
-           User user= await schoolBusContext.Users.FindAsync(idDriverToUpdate);
-          //if( user.Password
+            User user = await schoolBusContext.Users.FindAsync(userId);
+            if(user.Password == password)
+            {
+                user.Password = newPassword;
+                await schoolBusContext.SaveChangesAsync();
+            }
         }
 
     }
