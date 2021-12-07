@@ -52,8 +52,9 @@ namespace SchoolBus.Controllers
 
         // DELETE api/<DriverController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await IDriverBL.removeDriver(id);
         }
     }
 }

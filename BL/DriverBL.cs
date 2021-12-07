@@ -40,5 +40,9 @@ namespace BL
             await IDriverDL.changeDriverdetails(id,driverToUpdate);
 
         }
+        public async Task removeDriver(int id)
+        {
+            await IDriverDL.removeDriver(id);
+        }
     }
 }

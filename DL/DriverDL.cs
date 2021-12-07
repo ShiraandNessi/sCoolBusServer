@@ -37,5 +37,15 @@ namespace DL
             SchoolBusContext.Entry(driver).CurrentValues.SetValues(driverToUpdate);
             await SchoolBusContext.SaveChangesAsync();
         }
+        public async Task removeDriver(int id)
+        {
+            Driver driver = await SchoolBusContext.Drivers.FindAsync(id);
+            if(driver!=null)
+            {
+                SchoolBusContext.Drivers.Remove(driver);
+                await SchoolBusContext.SaveChangesAsync();
+            }
+
+        }
     }
 }
