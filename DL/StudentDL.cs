@@ -24,16 +24,10 @@ namespace DL
         {
             return await SchoolBusContext.Students.FirstAsync();
         }
-        public async Task<Student> AddNewStudent(Student newStudent)
+        public async Task<int> AddNewStudent(Student student)
         {
-            await SchoolBusContext.Students.AddAsync(newStudent);
-            await SchoolBusContext.SaveChangesAsync();
-            return newStudent;
-        }
-        public async Task changeStudentDetailes(Student correntStudent)
-        {
-            SchoolBusContext.Students.Update(correntStudent);
-            await SchoolBusContext.SaveChangesAsync();
+            await SchoolBusContext.Students.AddAsync(student);
+            return await SchoolBusContext.SaveChangesAsync();
         }
     }
 }

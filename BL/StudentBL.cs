@@ -25,13 +25,9 @@ namespace BL
         {
             return await IStudentDL.GetStudentById(id);
         }
-        public async Task<Student> AddNewStudent(Student newStudent)
+        public async Task<int> AddNewStudent(Student student)
         {
-            return await IStudentDL.AddNewStudent(newStudent);
-        }
-        public async Task changeStudentDetailes(Student correntStudent)
-        {
-            await IStudentDL.changeStudentDetailes(correntStudent);
+            return await IStudentDL.AddNewStudent(student);
         }
     }
 }
