@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DL
 {
     public class DriverDL : IDriverDL
-    {//
+    {
         SchoolBusContext SchoolBusContext;
         public DriverDL(SchoolBusContext SchoolBusContext)
         {
