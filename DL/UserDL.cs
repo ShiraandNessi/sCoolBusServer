@@ -39,12 +39,16 @@ namespace DL
 
         }
     
-        public async Task changeUserdetails(int? userId, string password, string newPassword)
+        public async Task changeUserdetails(int? userId, string password, string newPassword,string email )
         {
             User user = await schoolBusContext.Users.FindAsync(userId);
-            if(user.Password == password)
+            if(user!=null && user.Password == password)
             {
                 user.Password = newPassword;
+                if(email!= user.Email)
+                {
+                    user.Email = email;
+                }
                 await schoolBusContext.SaveChangesAsync();
             }
         }

@@ -27,11 +27,11 @@ namespace SchoolBus.Controllers
         }
 
        // GET api/<StudentController>
-        [HttpGet("{id}")]
-        public async Task<Student> Get(int id)
-        {
-            return await IStudentBL.GetStudentById(id);
-        }
+        //[HttpGet("{id}")]
+        //public async Task<Student> Get(int id)
+        //{
+        //    return await IStudentBL.GetStudentById(id);
+        //}
 
         // POST api/<StudentController>
         [HttpPost]
@@ -54,11 +54,11 @@ namespace SchoolBus.Controllers
 
 
 
-        //[HttpGet("{id}")]
-        //public async Task<List<Student>> Get(int id)
-        //{
-        //    return await IStudentBL.GetStudentByFamilyId(id);
-        //}
+        [HttpGet("{id}")]
+        public async Task<List<Student>> Get(int id)
+        {
+            return await IStudentBL.GetStudentByFamilyId(id);
+        }
 
     }
 }
