@@ -42,9 +42,9 @@ namespace SchoolBus.Controllers
 
         // PUT api/<StudentController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] string value)
+        public async Task Put(int id, [FromBody] Student StudentToUpdate)
         {
-            IStudentBL.
+            await IStudentBL.changeStudentDetails(id, StudentToUpdate);
         }
 
         //[Route("[action]/{familyId}")]

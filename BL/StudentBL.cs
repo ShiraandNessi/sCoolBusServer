@@ -33,5 +33,9 @@ namespace BL
         {
             return await IStudentDL.GetStudentByFamilyId(familyId);
         }
+        public async Task changeStudentDetails(int id, Student studentToUpdate)
+        {
+           await IStudentDL.changeStudentDetails(id, studentToUpdate);
+        }
     }
 }
