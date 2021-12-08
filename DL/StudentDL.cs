@@ -22,7 +22,7 @@ namespace DL
         }
         public async Task<Student> GetStudentById(int id)
         {
-            return await SchoolBusContext.Students.FirstAsync();
+            return await SchoolBusContext.Students.FindAsync(id);
         }
         public async Task<int> AddNewStudent(Student student)
         {
