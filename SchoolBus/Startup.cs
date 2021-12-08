@@ -31,6 +31,8 @@ namespace SchoolBus
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IStationDL, StationDL>();
+            services.AddScoped<IStationBL, StationBL>();
             services.AddScoped<IStudentDL, StudentDL>();
             services.AddScoped<IStudentBL, StudentBL>();
             services.AddScoped<IMessegeDL, MessegeDL>();

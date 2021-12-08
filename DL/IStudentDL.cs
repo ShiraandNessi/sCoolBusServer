@@ -12,5 +12,6 @@ namespace DL
         Task<List<Student>> GetStudentByFamilyId(int familyId);
         Task<Student> GetStudentById(int id);
         Task removeStudent(int id);
+        
     }
 }
