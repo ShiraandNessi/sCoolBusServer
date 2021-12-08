@@ -43,6 +43,8 @@ namespace SchoolBus
             services.AddScoped<IUserBL, UserBL>();
             services.AddScoped<IFamilyBL, FamilyBL>();
             services.AddScoped<IFamilyDL, FamilyDL>();
+            services.AddScoped<IRouteBL, RouteBL>();
+            services.AddScoped<IRouteDL, RouteDL>();
             services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(
                            "Server=srv2\\pupils;Database=SchoolBus;Trusted_Connection=True;"), ServiceLifetime.Scoped);
             services.AddControllers();
