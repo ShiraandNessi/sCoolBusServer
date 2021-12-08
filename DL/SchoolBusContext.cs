@@ -1,7 +1,8 @@
 ﻿using System;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Entities;
+
 #nullable disable
 
 namespace DL
@@ -41,10 +42,13 @@ namespace DL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Hebrew_CI_AS");
+            modelBuilder.HasDefaultSchema("mbydomain\\212625917")
+                .HasAnnotation("Relational:Collation", "Hebrew_CI_AS");
 
             modelBuilder.Entity<Driver>(entity =>
             {
+                entity.ToTable("Drivers", "dbo");
+
                 entity.HasIndex(e => e.Id, "IX_Drivers")
                     .IsUnique();
 
@@ -67,12 +71,13 @@ namespace DL
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Drivers)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Drivers_Users");
             });
 
             modelBuilder.Entity<Family>(entity =>
             {
+                entity.ToTable("Families", "dbo");
+
                 entity.HasIndex(e => e.Id, "IX_Families")
                     .IsUnique();
 
@@ -119,7 +124,7 @@ namespace DL
 
             modelBuilder.Entity<MessageType>(entity =>
             {
-                entity.ToTable("MessageType");
+                entity.ToTable("MessageType", "dbo");
 
                 entity.Property(e => e.Type)
                     .IsRequired()
@@ -128,6 +133,8 @@ namespace DL
 
             modelBuilder.Entity<Messege>(entity =>
             {
+                entity.ToTable("Messeges", "dbo");
+
                 entity.Property(e => e.MessageText).HasMaxLength(50);
 
                 entity.HasOne(d => d.Driver)
@@ -150,6 +157,8 @@ namespace DL
 
             modelBuilder.Entity<Route>(entity =>
             {
+                entity.ToTable("Routes", "dbo");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -162,6 +171,8 @@ namespace DL
 
             modelBuilder.Entity<Station>(entity =>
             {
+                entity.ToTable("Stations", "dbo");
+
                 entity.Property(e => e.Address)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -169,12 +180,12 @@ namespace DL
 
             modelBuilder.Entity<StationOfRoute>(entity =>
             {
-                entity.ToTable("StationOfRoute");
+                entity.ToTable("StationOfRoute", "dbo");
 
-                entity.HasIndex(e => e.StationOfRouteId, "IX_StationOfRoute")
+                entity.HasIndex(e => e.Id, "IX_StationOfRoute")
                     .IsUnique();
-
-                entity.Property(e => e.StationOfRouteId).ValueGeneratedNever();
+                entity.HasIndex(e => new { e.RouteId, e.StationId }, "IX_StationOfRoute_1")
+                     .IsUnique();
 
                 entity.HasOne(d => d.Route)
                     .WithMany(p => p.StationOfRoutes)
@@ -191,7 +202,7 @@ namespace DL
 
             modelBuilder.Entity<StatusType>(entity =>
             {
-                entity.ToTable("StatusType");
+                entity.ToTable("StatusType", "dbo");
 
                 entity.Property(e => e.Type)
                     .IsRequired()
@@ -200,13 +211,13 @@ namespace DL
 
             modelBuilder.Entity<Student>(entity =>
             {
+                entity.ToTable("Students", "dbo");
+
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.ImageRoute)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.ImageRoute).HasMaxLength(50);
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
@@ -221,7 +232,6 @@ namespace DL
                 entity.HasOne(d => d.Family)
                     .WithMany(p => p.Students)
                     .HasForeignKey(d => d.FamilyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Students_Families");
 
                 entity.HasOne(d => d.Rout)
@@ -233,7 +243,7 @@ namespace DL
 
             modelBuilder.Entity<StudentStatus>(entity =>
             {
-                entity.ToTable("StudentStatus");
+                entity.ToTable("StudentStatus", "dbo");
 
                 entity.Property(e => e.GetOffImage).HasColumnType("image");
 
@@ -253,6 +263,8 @@ namespace DL
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.ToTable("Users", "dbo");
+
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -270,7 +282,7 @@ namespace DL
 
             modelBuilder.Entity<UserType>(entity =>
             {
-                entity.ToTable("UserType");
+                entity.ToTable("UserType", "dbo");
 
                 entity.Property(e => e.Type)
                     .IsRequired()

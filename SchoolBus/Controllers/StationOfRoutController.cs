@@ -36,21 +36,24 @@ namespace SchoolBus.Controllers
 
         // POST api/<StationOfRoutController>
         [HttpPost]
-        public async Task<StationOfRoute> Post( int newStation,   int newRout)
+        public async Task<StationOfRoute> Post( int newStationId,   int newRoutId , TimeSpan? newAssumTime)
         {
-            return await IStationOfRoutBL.AddStationOfRoute(newStation, newRout);
+            return await IStationOfRoutBL.AddStationOfRoute(newStationId, newRoutId ,newAssumTime);
         }
 
         // PUT api/<StationOfRoutController>/5
         [HttpPut("{id}")]
-        public void Put(int id)
-        {
-        }
+        //public Task Put(int id, int st)
+        //{
+
+        //}
 
         // DELETE api/<StationOfRoutController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id, int newStationId, int newRoutId, TimeSpan? newAssumTime)
         {
+             await IStationOfRoutBL.changeDetailsStationOfRoute(id,newStationId, newRoutId, newAssumTime);
+
         }
     }
 }
