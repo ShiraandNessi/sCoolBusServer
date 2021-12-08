@@ -11,5 +11,6 @@ namespace BL
         Task<int> AddNewStudent(Student student);
         Task<List<Student>> GetStudentByFamilyId(int familyId);
         Task changeStudentDetails(int id, Student studentToUpdate);
+        Task removeStudent(int id);
     }
 }

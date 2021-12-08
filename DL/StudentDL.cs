@@ -10,7 +10,7 @@ namespace DL
 {
     public class StudentDL : IStudentDL
     {
-       SchoolBusContext SchoolBusContext;
+        SchoolBusContext SchoolBusContext;
         public StudentDL(SchoolBusContext SchoolBusContext)
         {
             this.SchoolBusContext = SchoolBusContext;
@@ -33,11 +33,20 @@ namespace DL
         {
             return await SchoolBusContext.Students.Where(student => student.FamilyId == familyId).ToListAsync();
         }
-        public async Task changeStudentdetails(int id, Student studentToUpdate)
+        public async Task changeStudentDetails(int id, Student studentToUpdate)
         {
             Student student = await SchoolBusContext.Students.FindAsync(id);
             SchoolBusContext.Entry(student).CurrentValues.SetValues(studentToUpdate);
             await SchoolBusContext.SaveChangesAsync();
+        }
+        public async Task removeStudent(int id)
+        {
+            Student student = await SchoolBusContext.Students.FindAsync(id);
+            if (student != null)
+            {
+                SchoolBusContext.Students.Remove(student);
+                await SchoolBusContext.SaveChangesAsync();
+            }
         }
     }
 }

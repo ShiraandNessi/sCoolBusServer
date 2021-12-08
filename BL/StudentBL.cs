@@ -37,5 +37,9 @@ namespace BL
         {
            await IStudentDL.changeStudentDetails(id, studentToUpdate);
         }
+        public async Task removeStudent(int id)
+        {
+            await IStudentDL.removeStudent(id);
+        }
     }
 }

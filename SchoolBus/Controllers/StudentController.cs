@@ -27,11 +27,11 @@ namespace SchoolBus.Controllers
         }
 
        // GET api/<StudentController>
-        //[HttpGet("{id}")]
-        //public async Task<Student> Get(int id)
-        //{
-        //    return await IStudentBL.GetStudentById(id);
-        //}
+        [HttpGet("{id}")]
+        public async Task<Student> Get(int id)
+        {
+            return await IStudentBL.GetStudentById(id);
+        }
 
         // POST api/<StudentController>
         [HttpPost]
@@ -42,9 +42,15 @@ namespace SchoolBus.Controllers
 
         // PUT api/<StudentController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] Student StudentToUpdate)
+        public async Task Put(int id, [FromBody] Student studentToUpdate)
         {
-            await IStudentBL.changeStudentDetails(id, StudentToUpdate);
+            await IStudentBL.changeStudentDetails(id, studentToUpdate);
+        }
+        // DELETE api/<DriverController>/5
+        [HttpDelete("{id}")]
+        public async Task Delete(int id)
+        {
+            await IStudentBL.removeStudent(id);
         }
 
         //[Route("[action]/{familyId}")]
@@ -55,11 +61,11 @@ namespace SchoolBus.Controllers
 
 
 
-        [HttpGet("{id}")]
-        public async Task<List<Student>> Get(int id)
-        {
-            return await IStudentBL.GetStudentByFamilyId(id);
-        }
+        //[HttpGet("{id}")]
+        //public async Task<List<Student>> Get(int id)
+        //{
+        //    return await IStudentBL.GetStudentByFamilyId(id);
+        //}
 
     }
 }
