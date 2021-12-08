@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -15,13 +16,18 @@ namespace Entities
 
         public int Id { get; set; }
         public string Name { get; set; }
+        [JsonIgnore]
         public TimeSpan StartTime { get; set; }
+        [JsonIgnore]
         public TimeSpan AssumEndTime { get; set; }
+        [JsonIgnore]
         public bool Direction { get; set; }
         public int? DriverId { get; set; }
-
+        [JsonIgnore]
         public virtual Driver Driver { get; set; }
+        [JsonIgnore]
         public virtual ICollection<StationOfRoute> StationOfRoutes { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Student> Students { get; set; }
     }
 }
