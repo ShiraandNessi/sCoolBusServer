@@ -53,5 +53,16 @@ namespace DL
             }
         }
 
+        public async Task removeUser(int? userId)
+        {
+            User user = await schoolBusContext.Users.FindAsync(userId);
+
+            if (user != null)
+            {
+                
+                schoolBusContext.Users.Remove(user);
+                await schoolBusContext.SaveChangesAsync();
+            }
+        }
     }
 }

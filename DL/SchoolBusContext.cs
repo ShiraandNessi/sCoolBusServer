@@ -113,7 +113,7 @@ namespace DL
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Families)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Families_Users");
             });
 

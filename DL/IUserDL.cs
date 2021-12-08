@@ -9,5 +9,6 @@ namespace DL
         public Task<User> AddNewDriverUser(Driver newDriver, string password);
         public Task<User> AddNewFamilyUser(Family newFamily, string password);
         public Task changeUserdetails(int? userId, string password, string newPassword,string email);
+        public Task removeUser(int? userId);
     }
 }

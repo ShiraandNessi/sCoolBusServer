@@ -10,9 +10,11 @@ namespace DL
     public class FamilyDL: IFamilyDL
     {
         SchoolBusContext SchoolBusContext;
-        public FamilyDL(SchoolBusContext SchoolBusContext)
+        IUserDL IUserDL;
+        public FamilyDL(SchoolBusContext SchoolBusContext,IUserDL IUserDL)
         {
             this.SchoolBusContext = SchoolBusContext;
+            this.IUserDL = IUserDL;
         }
         public async Task<Family> GetFamilyById(int id)
         {
@@ -31,5 +33,22 @@ namespace DL
             SchoolBusContext.Entry(family).CurrentValues.SetValues(familyToUpdate);
             await SchoolBusContext.SaveChangesAsync();
         }
+
+        public async Task removeFamily(int id)
+        {
+            Family family = await SchoolBusContext.Families.FindAsync(id);
+
+            if (family != null)
+            {
+                IUserDL.removeUser(family.UserId);
+                SchoolBusContext.Families.Remove(family);
+                await SchoolBusContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+        
     }
 }

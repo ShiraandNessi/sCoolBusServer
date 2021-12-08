@@ -45,7 +45,7 @@ namespace SchoolBus.Controllers
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
-            
+            IFamilyBL.removeFamily(id);
         }
     }
 }

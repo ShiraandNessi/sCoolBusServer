@@ -32,5 +32,11 @@ namespace BL
             await IUserDL.changeUserdetails(familyToUpdate.UserId, password, newPassword, familyToUpdate.Email);
             await IFamilyDL.changeFamilyDetails(id, familyToUpdate);
         }
+
+        public async Task removeFamily(int id)
+        {
+         
+            IFamilyDL.removeFamily(id);
+        }
     }
 }
