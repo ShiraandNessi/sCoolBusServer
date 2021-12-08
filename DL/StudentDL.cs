@@ -24,10 +24,11 @@ namespace DL
         {
             return await SchoolBusContext.Students.FindAsync(id);
         }
-        public async Task<int> AddNewStudent(Student student)
+        public async Task<Student> AddNewStudent(Student student)
         {
             await SchoolBusContext.Students.AddAsync(student);
-            return await SchoolBusContext.SaveChangesAsync();
+            await SchoolBusContext.SaveChangesAsync();
+            return student;
         }
         public async Task<List<Student>> GetStudentByFamilyId(int familyId)
         {

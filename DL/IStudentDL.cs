@@ -6,7 +6,7 @@ namespace DL
 {
     public interface IStudentDL
     {
-        Task<int> AddNewStudent(Student student);
+        Task<Student> AddNewStudent(Student student);
         Task changeStudentDetails(int id, Student studentToUpdate);
         Task<List<Student>> GetAllStudents();
         Task<List<Student>> GetStudentByFamilyId(int familyId);

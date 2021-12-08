@@ -35,7 +35,7 @@ namespace SchoolBus.Controllers
 
         // POST api/<StudentController>
         [HttpPost]
-        public async Task<int> Post([FromBody] Student student)
+        public async Task<Student> Post([FromBody] Student student)
         {
             return await IStudentBL.AddNewStudent(student);
         }
