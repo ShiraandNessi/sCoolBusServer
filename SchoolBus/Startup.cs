@@ -32,7 +32,7 @@ namespace SchoolBus
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IStationOfRoutDL, StationOfRoutDL>();
-            services.AddScoped<IStationOfRoutBL, StationOfRoutBL>();
+      
             services.AddScoped<IStationDL, StationDL>();
             services.AddScoped<IStationBL, StationBL>();
             services.AddScoped<IStudentDL, StudentDL>();

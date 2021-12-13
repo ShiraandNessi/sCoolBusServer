@@ -6,7 +6,7 @@ namespace DL
 {
     public interface IStationOfRoutDL
     {
-       Task<StationOfRoute> AddStationOfRoute(int newStationId, int newRoutId , TimeSpan? newAssumTime);
-        Task changeDetailsStationOfRoute(int id, int newStationId, int newRoutId, TimeSpan? newAssumTime);
+        Task addNewStationToRoute(int routeId, int newStationId);
+        //Task changeDetailsStationOfRoute(int id, int newStationId, int newRoutId, TimeSpan? newAssumTime);
     }
 }

@@ -34,11 +34,11 @@ namespace SchoolBus.Controllers
             return await IStationBL.getStationById(id);
         }
 
-        [Route("[action]/{driverId}")]
-        public async Task<List<Student>> GetStationsByDriverId(int driverId)
-        {
-            return await IStationBL.GetStationsByDriverId(driverId);
-        }
+        //[Route("[action]/{driverId}")]
+        //public async Task<List<Student>> GetStationsByDriverId(int driverId)
+        //{
+        //    return await IStationBL.GetStationsByDriverId(driverId);
+        //}
 
         // POST api/<StationController>
         [HttpPost]

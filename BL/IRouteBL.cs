@@ -9,5 +9,6 @@ namespace BL
         Task<List<Route>> getAllRoutes();
         Task<List<Route>> getAllRoutesByDriverId(int driverId);
         Task<Route> addNewRoute(Route newRoute);
+        Task addNewStationToRoute(int routeId,int newStationId);
     }
 }

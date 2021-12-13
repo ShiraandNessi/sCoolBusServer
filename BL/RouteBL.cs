@@ -11,9 +11,11 @@ namespace BL
     public class RouteBL : IRouteBL
     {
         IRouteDL IRouteDL;
-        public RouteBL(IRouteDL IRouteDL)
+        IStationOfRoutDL IStationOfRoutDL;
+        public RouteBL(IRouteDL IRouteDL , IStationOfRoutDL IStationOfRoutDL)
         {
             this.IRouteDL = IRouteDL;
+            this.IStationOfRoutDL = IStationOfRoutDL;
         }
 
         public async Task<Route> addNewRoute(Route newRoute)
@@ -28,6 +30,10 @@ namespace BL
         public async Task<List<Route>> getAllRoutesByDriverId(int driverId)
         {
             return await IRouteDL.getAllRoutesByDriverId(driverId);
+        }
+        public async Task addNewStationToRoute(int routeId, int newStationId)
+        {
+            await IStationOfRoutDL.addNewStationToRoute(routeId, newStationId);
         }
     }
 }

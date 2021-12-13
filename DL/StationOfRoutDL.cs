@@ -14,12 +14,12 @@ namespace DL
         {
             SchoolBusContext = _SchoolBusContext;
         }
-        public async Task<StationOfRoute> AddStationOfRoute(int newStationId, int newRoutId , TimeSpan? newAssumTime)
+        public async Task addNewStationToRoute(int routeId,int  newStationId)
         {
-            StationOfRoute stationOfRoute = new StationOfRoute() { StationId = newStationId, RouteId = newRoutId , AssumArrivalTime = newAssumTime };
+            StationOfRoute stationOfRoute = new StationOfRoute() { StationId = newStationId, RouteId = routeId };
             await SchoolBusContext.StationOfRoutes.AddAsync(stationOfRoute);
             await SchoolBusContext.SaveChangesAsync();
-            return stationOfRoute;
+            return;
         }
 
         public async Task changeDetailsStationOfRoute(int id, int newStationId, int newRoutId, TimeSpan? newAssumTime)

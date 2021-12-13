@@ -30,7 +30,7 @@ namespace SchoolBus.Controllers
         [HttpGet("{driverId}")]
         public async Task<List<Route>> Get(int driverId)
         {
-            return await IRouteBL.getAllRoutesByDriverId(driverId) ;
+            return await IRouteBL.getAllRoutesByDriverId(driverId);
         }
 
         // POST api/<RouteController>
@@ -38,6 +38,12 @@ namespace SchoolBus.Controllers
         public async Task<Route> Post([FromBody] Route newRoute)
         {
             return await IRouteBL.addNewRoute(newRoute);
+        }
+
+        [HttpPost("{routeId}/{newStationId}")]
+        public async Task Post(int routeId , int newStationId)
+        {
+             await IRouteBL.addNewStationToRoute(routeId, newStationId);
         }
 
         // PUT api/<RouteController>/5
