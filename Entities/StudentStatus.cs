@@ -11,8 +11,8 @@ namespace Entities
         public int Studentid { get; set; }
         public int? StatusTypeId { get; set; }
         public bool? GetAlert { get; set; }
-        public byte[] GetOnImage { get; set; }
-        public byte[] GetOffImage { get; set; }
+        public string GetOnImage { get; set; }
+        public string GetOffImage { get; set; }
 
         public virtual StatusType StatusType { get; set; }
         public virtual Student Student { get; set; }
