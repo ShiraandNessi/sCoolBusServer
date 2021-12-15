@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DL;
 using BL;
+using AutoMapper;
 
 namespace SchoolBus
 {
@@ -31,6 +32,7 @@ namespace SchoolBus
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IStationOfRoutDL, StationOfRoutDL>();
       
             services.AddScoped<IStationDL, StationDL>();
@@ -54,6 +56,7 @@ namespace SchoolBus
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchoolBus", Version = "v1" });
             });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

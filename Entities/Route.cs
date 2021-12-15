@@ -23,9 +23,9 @@ namespace Entities
         [JsonIgnore]
         public bool Direction { get; set; }
         public int? DriverId { get; set; }
-        [JsonIgnore]
+       
         public virtual Driver Driver { get; set; }
-        [JsonIgnore]
+        
         public virtual ICollection<StationOfRoute> StationOfRoutes { get; set; }
         [JsonIgnore]
         public virtual ICollection<Student> Students { get; set; }

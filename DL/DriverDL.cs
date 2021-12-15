@@ -7,7 +7,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DL
-{//שירה אם זה ההערה אצלך זה אומר שזה מעודכן
+{
     public class DriverDL : IDriverDL
     {
         SchoolBusContext SchoolBusContext;

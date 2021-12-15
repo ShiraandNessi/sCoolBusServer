@@ -8,8 +8,8 @@ namespace BL
     {
         Task<Station> getStationById(int id);
         Task<List<Station>> getAllStation();
-        //Task<List<Student>> GetStationsByDriverId(int driverId);
+        Task<List<StationOfRoute>> GetStationsByRouteId(int RouteId);
         Task<Station> addNewStation(Station newStation);
-        
+        Task<List<StationOfRoute>> GetStationsByDriverId(int driverId);
     }
 }

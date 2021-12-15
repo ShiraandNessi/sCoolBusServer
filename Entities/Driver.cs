@@ -26,7 +26,7 @@ namespace Entities
         public virtual User User { get; set; }
         [JsonIgnore]
         public virtual ICollection<Messege> Messeges { get; set; }
-        [JsonIgnore]
+     
         public virtual ICollection<Route> Routes { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,14 @@ namespace DL
                 SchoolBusContext.Entry(stationOfRoute).CurrentValues.SetValues(new StationOfRoute() { Id = id, StationId = newStationId, RouteId = newRoutId, AssumArrivalTime = newAssumTime });
                 await SchoolBusContext.SaveChangesAsync();
             }
+        }
+        public async Task<List<StationOfRoute>> GetStationsByRouteId(int RouteId)
+        {
+            return await SchoolBusContext.StationOfRoutes.Include(a=>a.Station).Where(sor=>sor.RouteId== RouteId).ToListAsync();
+        }
+        public async Task<List<StationOfRoute>> GetStationsByDriverId(int driverId)
+        {
+            return await SchoolBusContext.StationOfRoutes.Include(a => a.Route).Where(sor => sor.Route.DriverId == driverId).Include(a=>a.Station).ToListAsync();
         }
     }
 }

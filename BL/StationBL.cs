@@ -9,10 +9,12 @@ namespace BL
 {
     public class StationBL : IStationBL
     {
-        IStationDL IStationDL; 
-        public StationBL(IStationDL _IStationDL)
+        IStationDL IStationDL;
+        IStationOfRoutDL IStationOfRoutDL;
+        public StationBL(IStationDL _IStationDL, IStationOfRoutDL _IStationOfRoutDL)
         {
             IStationDL = _IStationDL;
+            IStationOfRoutDL = _IStationOfRoutDL;
         }
 
         public async Task<Station> getStationById(int id)
@@ -23,13 +25,18 @@ namespace BL
         {
             return await IStationDL.getAllStation();
         }
-        //public async Task<List<Student>> GetStationsByDriverId(int driverId)
-        //{
-        //    return await IStationDL.GetStationsByDriverId(driverId);
-        //}
+        public async Task<List<StationOfRoute>> GetStationsByRouteId(int RouteId)
+        {
+            return await IStationOfRoutDL.GetStationsByRouteId(RouteId);
+        }
         public async Task<Station> addNewStation(Station newStation)
         {
             return await IStationDL.addNewStation(newStation);
         }
+        public async Task<List<StationOfRoute>> GetStationsByDriverId(int driverId)
+        {
+            return await IStationOfRoutDL.GetStationsByDriverId(driverId);
+        }
+
     }
 }
