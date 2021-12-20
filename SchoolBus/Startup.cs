@@ -49,8 +49,7 @@ namespace SchoolBus
             services.AddScoped<IFamilyDL, FamilyDL>();
             services.AddScoped<IRouteBL, RouteBL>();
             services.AddScoped<IRouteDL, RouteDL>();
-            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(
-                           "Server=srv2\\pupils;Database=SchoolBus;Trusted_Connection=True;"), ServiceLifetime.Scoped);
+            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBus")), ServiceLifetime.Scoped);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
