@@ -19,7 +19,7 @@ namespace SchoolBus.Controllers
 
         IStationBL IStationBL;
         IMapper IMapper;
-        public StationController(IStationBL _IStationBL, IMapper _IMapper )
+        public StationController(IStationBL _IStationBL, IMapper _IMapper)
         {
             IStationBL = _IStationBL;
             IMapper = _IMapper;
@@ -30,33 +30,35 @@ namespace SchoolBus.Controllers
         {
             return await IStationBL.getAllStation();
         }
-       // GET api/<StationController>/5
+        // GET api/<StationController>/5
         [HttpGet("{id}")]
         public async Task<Station> Get(int id)
         {
             return await IStationBL.getStationById(id);
         }
 
-      //  [Route("[action]/{routeId}")]
-      //// [HttpGet("{routeId}")]
-      //  public async Task<List<StationRouteDTO>> GetStationsByRouteId(int routeId)
-      //  {
-      //     List<StationOfRoute> res = await IStationBL.GetStationsByRouteId(routeId);
-      //     return IMapper.Map<List<StationOfRoute>, List<StationRouteDTO>>(res);
+        //  [Route("[action]/{routeId}")]
+        //// [HttpGet("{routeId}")]
+        public async Task<List<StationRouteDTO>> GetStationsByRouteId(int routeId)
+        {
+            List<StationOfRoute> res = await IStationBL.GetStationsByRouteId(routeId);
+            return IMapper.Map<List<StationOfRoute>, List<StationRouteDTO>>(res);
+
+
+            //  }
+            //  [Route("[action]/{driverId}")]
+            //  public async Task<List<StationRouteDTO>> GetStationsByDriverId(int driverId)
+            //  {
+            //      List<StationOfRoute> res = await IStationBL.GetStationsByDriverId(driverId);
+            //      return IMapper.Map<List<StationOfRoute>, List<StationRouteDTO>>(res);
+
+            //  }
+
            
-
-      //  }
-      //  [Route("[action]/{driverId}")]
-      //  public async Task<List<StationRouteDTO>> GetStationsByDriverId(int driverId)
-      //  {
-      //      List<StationOfRoute> res = await IStationBL.GetStationsByDriverId(driverId);
-      //      return IMapper.Map<List<StationOfRoute>, List<StationRouteDTO>>(res);
-
-      //  }
-
+        }
         // POST api/<StationController>
         [HttpPost]
-        public async Task<Station> Post( [FromBody] Station newStation)
+        public async Task<Station> Post([FromBody] Station newStation)
         {
             return await IStationBL.addNewStation(newStation);
         }
