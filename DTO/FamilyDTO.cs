@@ -24,7 +24,13 @@ namespace DTO
         public int UserId { get; set; }
         public string Password { get; set; }
 
+        public int StationId { get; set; }
 
+        public string StationAddress { get; set; }
+
+        public double PointX { get; set; }
+
+        public double PointY { get; set; }
 
     }
 }
