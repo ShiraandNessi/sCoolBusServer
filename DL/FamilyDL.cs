@@ -1,5 +1,6 @@
 ﻿using DTO;
 using Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,14 +20,17 @@ namespace DL
         }
         public async Task<Family> GetFamilyById(int id)
         {
-            return await SchoolBusContext.Families.FindAsync(id);
+            Family family= await SchoolBusContext.Families.FindAsync(id);
+           List<Family>  families=await SchoolBusContext.Families.Include(a => a.User).Where(fam => fam.User.Id == family.UserId).Include(a => a.Station).Where(fam => fam.Station.Id == family.StationId).ToListAsync();
+            return families[0];
         }
-        public async Task<Family> AddNewFamily(FamilyDTO newFamily)
+        public async Task<FamilyDTO> AddNewFamily(FamilyDTO newFamily)
         {
-            Family family = new Family { Id = newFamily.Id, FamilyName = newFamily.FamilyName, MotherName = newFamily.MotherName, FatherName = newFamily.FatherName, MotherPhone = newFamily.MotherPhone, FatherPhone = newFamily.FatherPhone, Email = newFamily.Email, Address = newFamily.Address, EnableFatherWhatsApp = newFamily.EnableFatherWhatsApp, EnableMotherWhatsApp = newFamily.EnableMotherWhatsApp, StationId = newFamily.StationId, UserId = newFamily.UserId };
+            Family family = new Family { FamilyName = newFamily.FamilyName, MotherName = newFamily.MotherName, FatherName = newFamily.FatherName, MotherPhone = newFamily.MotherPhone, FatherPhone = newFamily.FatherPhone, Email = newFamily.Email, Address = newFamily.Address, EnableFatherWhatsApp = newFamily.EnableFatherWhatsApp, EnableMotherWhatsApp = newFamily.EnableMotherWhatsApp, StationId = newFamily.StationId, UserId = newFamily.UserId };
             await SchoolBusContext.Families.AddAsync(family);
             await SchoolBusContext.SaveChangesAsync();
-            return family;
+            newFamily.Id = family.Id;
+            return newFamily;
         }
         public async Task changeFamilyDetails(int id, FamilyDTO familyToUpdate)
         {

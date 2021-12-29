@@ -28,6 +28,9 @@ namespace SchoolBus
            
            CreateMap<Family, FamilyDTO>()
           .ForMember(des => des.Password, opts => opts.MapFrom(src => src.User.Password))
+          .ForMember(des => des.StationAddress, opts => opts.MapFrom(src => src.Station.Address))
+          .ForMember(des => des.PointX, opts => opts.MapFrom(src => src.Station.PointX))
+          .ForMember(des => des.PointY, opts => opts.MapFrom(src => src.Station.PointY))
           .ReverseMap();
 
         }

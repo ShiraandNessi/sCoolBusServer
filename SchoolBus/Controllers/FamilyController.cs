@@ -1,4 +1,5 @@
-﻿using BL;
+﻿using AutoMapper;
+using BL;
 using DTO;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -17,20 +18,23 @@ namespace SchoolBus.Controllers
     public class FamilyController : ControllerBase
     {
         IFamilyBL IFamilyBL;
-        public FamilyController(IFamilyBL IFamilyBL)
+        IMapper _IMapper;
+        public FamilyController(IFamilyBL IFamilyBL, IMapper IMapper)
         {
             this.IFamilyBL = IFamilyBL;
+            _IMapper = IMapper;
         }
         // GET api/<FamilyController>/5
         [HttpGet("{id}")]
-        public async Task<Family> Get(int id)
+        public async Task<FamilyDTO> Get(int id)
         {
-            return await IFamilyBL.GetFamilyById(id);
+            Family res= await IFamilyBL.GetFamilyById(id);
+            return _IMapper.Map<Family,FamilyDTO>(res);
         }
 
         // POST api/<FamilyController>
         [HttpPost]
-        public async Task<Family> Post( [FromBody] FamilyDTO newFamily)
+        public async Task<FamilyDTO> Post( [FromBody] FamilyDTO newFamily)
         {
             return await IFamilyBL.AddNewFamily(newFamily);
         }

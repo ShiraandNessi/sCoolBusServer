@@ -29,9 +29,9 @@ namespace Entities
         public int StationId { get; set; }
        
         public int? UserId { get; set; }
-        [JsonIgnore]
+        
         public virtual Station Station { get; set; }
-        [JsonIgnore]
+        
         public virtual User User { get; set; }
         [JsonIgnore]
         public virtual ICollection<Student> Students { get; set; }

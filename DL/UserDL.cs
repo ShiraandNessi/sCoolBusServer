@@ -24,7 +24,7 @@ namespace DL
         }
         public async Task<User> AddNewFamilyUser(FamilyDTO newFamily)
         {
-            User newUser = new User() { Email = newFamily.Email, Password = newFamily., UserTypeId = (int)UserTypeEnum.Driver };
+            User newUser = new User() { Email = newFamily.Email, Password = newFamily.Password, UserTypeId = (int)UserTypeEnum.Driver };
             await schoolBusContext.Users.AddAsync(newUser);
              await schoolBusContext.SaveChangesAsync();
             return newUser;
