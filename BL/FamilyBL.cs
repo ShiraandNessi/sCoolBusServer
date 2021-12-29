@@ -1,4 +1,5 @@
 ﻿using DL;
+using DTO;
 using Entities;
 using System;
 using System.Collections.Generic;
@@ -21,15 +22,15 @@ namespace BL
         {
             return await IFamilyDL.GetFamilyById(id);
         }
-        public async Task<Family> AddNewFamily(Family newFamily, string passsword)
+        public async Task<Family> AddNewFamily(FamilyDTO newFamily)
         {
-            User newUser = await IUserDL.AddNewFamilyUser(newFamily, passsword);
+            User newUser = await IUserDL.AddNewFamilyUser(newFamily);
             newFamily.UserId = newUser.Id;
             return await IFamilyDL.AddNewFamily(newFamily);
         }
-        public async Task changeFamilyDetails(int id,Family familyToUpdate, string password, string newPassword)
+        public async Task changeFamilyDetails(int id,FamilyDTO familyToUpdate,string newPassword)
         {
-            await IUserDL.changeUserdetails(familyToUpdate.UserId, password, newPassword, familyToUpdate.Email);
+            await IUserDL.changeUserdetails(familyToUpdate.UserId, familyToUpdate.Password, newPassword, familyToUpdate.Email);
             await IFamilyDL.changeFamilyDetails(id, familyToUpdate);
         }
 

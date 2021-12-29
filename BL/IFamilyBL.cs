@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DTO;
+using Entities;
 using System.Threading.Tasks;
 
 namespace BL
@@ -6,8 +7,8 @@ namespace BL
     public interface IFamilyBL
     {
         Task<Family> GetFamilyById(int id);
-        Task<Family> AddNewFamily(Family newFamily, string passsword);
-        Task changeFamilyDetails(int id, Family familyToUpdate, string password, string newPassword);
+        Task<Family> AddNewFamily(FamilyDTO newFamily);
+        Task changeFamilyDetails(int id, FamilyDTO familyToUpdate, string newPassword);
         Task removeFamily(int id);
     }
 }

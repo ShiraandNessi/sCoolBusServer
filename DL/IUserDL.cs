@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DTO;
+using Entities;
 using System.Threading.Tasks;
 
 namespace DL
@@ -7,7 +8,7 @@ namespace DL
     {
         public Task<User> GetUser(string email, string password);
         public Task<User> AddNewDriverUser(Driver newDriver, string password);
-        public Task<User> AddNewFamilyUser(Family newFamily, string password);
+        public Task<User> AddNewFamilyUser(FamilyDTO newFamily);
         public Task changeUserdetails(int? userId, string password, string newPassword,string email);
         public Task removeUser(int? userId);
     }

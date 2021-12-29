@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DTO;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,9 @@ namespace DL
 
             return res;
         }
-        public async Task<User> AddNewFamilyUser(Family newFamily, string password)
+        public async Task<User> AddNewFamilyUser(FamilyDTO newFamily)
         {
-            User newUser = new User() { Email = newFamily.Email, Password = password, UserTypeId = (int)UserTypeEnum.Driver };
+            User newUser = new User() { Email = newFamily.Email, Password = newFamily., UserTypeId = (int)UserTypeEnum.Driver };
             await schoolBusContext.Users.AddAsync(newUser);
              await schoolBusContext.SaveChangesAsync();
             return newUser;

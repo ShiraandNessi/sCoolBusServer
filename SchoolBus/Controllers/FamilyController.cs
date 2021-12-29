@@ -1,4 +1,5 @@
 ﻿using BL;
+using DTO;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -29,16 +30,16 @@ namespace SchoolBus.Controllers
 
         // POST api/<FamilyController>
         [HttpPost]
-        public async Task<Family> Post(string passsword, [FromBody] Family newFamily)
+        public async Task<Family> Post( [FromBody] FamilyDTO newFamily)
         {
-            return await IFamilyBL.AddNewFamily(newFamily, passsword);
+            return await IFamilyBL.AddNewFamily(newFamily);
         }
 
         // PUT api/<FamilyController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] Family familyToUpdate,string password, string newPassword)
+        public async Task Put(int id, [FromBody] FamilyDTO familyToUpdate,string newPassword)
         {
-            await IFamilyBL.changeFamilyDetails(id, familyToUpdate, password, newPassword);
+            await IFamilyBL.changeFamilyDetails(id, familyToUpdate, newPassword);
         }
 
         // DELETE api/<FamilyController>/5

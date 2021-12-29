@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DL\DL.csproj" />
+    <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
 
