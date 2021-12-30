@@ -1,4 +1,6 @@
-﻿using BL;
+﻿using AutoMapper;
+using BL;
+using DTO;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,36 +17,48 @@ namespace SchoolBus.Controllers
     public class DriverController : ControllerBase
     {
         IDriverBL IDriverBL;
-        public DriverController(IDriverBL IDriverBL)
+        IMapper IMapper;
+        public DriverController(IDriverBL IDriverBL, IMapper IMapper)
         {
             this.IDriverBL = IDriverBL;
+           this.IMapper = IMapper;
         }
         // GET: api/<DriverController>
         [HttpGet]
-        public async Task<List<Driver>> Get()
+        public async Task<List<DriverDTO>> Get()
         {
-            return await IDriverBL.GatAllDrivers();
+            List<DriverDTO> resDriers= new List<DriverDTO> { };
+           List<Driver> res = await IDriverBL.GatAllDrivers();
+            foreach(var i in res)
+            {
+                resDriers.Append( IMapper.Map<Driver,DriverDTO>(i));
+            }
+            return resDriers;
+
+
         }
 
         // GET api/<DriverController>/5
         [HttpGet("{id}")]
-        public async Task<Driver> Get(int id)
+        public async Task<DriverDTO> Get(int id)
         {
-            return await IDriverBL.GatDriverById(id);
+           
+            Driver res= await IDriverBL.GatDriverById(id);
+            return IMapper.Map<Driver, DriverDTO>(res);
         }
 
         // POST api/<DriverController>
         [HttpPost]
-        public async Task<Driver> Post(string passsword,[FromBody] Driver newDriver)
+        public async Task<DriverDTO> Post([FromBody] DriverDTO newDriver)
         {
-           return await IDriverBL.AddNewDriver(newDriver, passsword);
+           return await IDriverBL.AddNewDriver(newDriver);
         }
 
         // PUT api/<DriverController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] Driver driverToUpdate,string password,  string newPassword)
+        public async Task Put(int id, [FromBody] DriverDTO driverToUpdate,string newPassword)
         {
-            await IDriverBL.changeDriverdetails(id, driverToUpdate, password, newPassword);
+            await IDriverBL.changeDriverdetails(id, driverToUpdate,newPassword);
         }
         
 

@@ -21,12 +21,12 @@ namespace Entities
         public string Email { get; set; }
        
         public int? UserId { get; set; }
-        [JsonIgnore]
 
+        [JsonIgnore]
         public virtual User User { get; set; }
         [JsonIgnore]
         public virtual ICollection<Messege> Messeges { get; set; }
-     
+        [JsonIgnore]
         public virtual ICollection<Route> Routes { get; set; }
     }
 }

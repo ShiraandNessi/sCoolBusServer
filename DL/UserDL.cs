@@ -30,10 +30,10 @@ namespace DL
             return newUser;
         }
         
-        public async Task<User> AddNewDriverUser(Driver newDriver,string password)
+        public async Task<User> AddNewDriverUser(DriverDTO newDriver)
         {
 
-            User newUser = new User() { Email = newDriver.Email, Password = password, UserTypeId = (int)UserTypeEnum.Driver };
+            User newUser = new User() { Email = newDriver.Email, Password = newDriver.Password, UserTypeId = (int)UserTypeEnum.Driver };
             await schoolBusContext.Users.AddAsync(newUser);
             await schoolBusContext.SaveChangesAsync();
             return newUser;

@@ -1,4 +1,5 @@
 ﻿using DL;
+using DTO;
 using Entities;
 using System;
 using System.Collections.Generic;
@@ -26,17 +27,17 @@ namespace BL
         {
             return await IDriverDL.GetDriverById(id);
         }
-        public async Task<Driver> AddNewDriver(Driver newDriver, string passsword)
+        public async Task<DriverDTO> AddNewDriver(DriverDTO newDriver)
         {
-            User newUser = await IUserDL.AddNewDriverUser(newDriver, passsword);
+            User newUser = await IUserDL.AddNewDriverUser(newDriver);
             newDriver.UserId = newUser.Id;
             return await IDriverDL.AddNewDriver(newDriver);
 
            
         }
-        public async Task changeDriverdetails(int id,Driver driverToUpdate, string password, string newPassword)
+        public async Task changeDriverdetails(int id,DriverDTO driverToUpdate,string newPassword)
         {
-            await IUserDL.changeUserdetails(driverToUpdate.UserId, password, newPassword, driverToUpdate.Email);
+            await IUserDL.changeUserdetails(driverToUpdate.UserId, driverToUpdate.Password,newPassword, driverToUpdate.Email);
             await IDriverDL.changeDriverdetails(id,driverToUpdate);
 
         }

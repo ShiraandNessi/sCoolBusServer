@@ -33,6 +33,10 @@ namespace SchoolBus
           .ForMember(des => des.PointY, opts => opts.MapFrom(src => src.Station.PointY))
           .ReverseMap();
 
+          CreateMap<Driver, DriverDTO>()
+          .ForMember(des => des.Password, opts => opts.MapFrom(src => src.User.Password))
+          .ReverseMap();
+
         }
     }
 }

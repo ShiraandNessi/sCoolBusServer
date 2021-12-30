@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using AutoMapper;
+using DTO;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,10 +14,12 @@ namespace DL
     {
         SchoolBusContext SchoolBusContext;
         IUserDL IUserDL;
-        public FamilyDL(SchoolBusContext SchoolBusContext,IUserDL IUserDL)
+        IMapper IMapper;
+        public FamilyDL(SchoolBusContext SchoolBusContext,IUserDL IUserDL,IMapper IMapper)
         {
             this.SchoolBusContext = SchoolBusContext;
             this.IUserDL = IUserDL;
+            this.IMapper = IMapper;
         }
         public async Task<Family> GetFamilyById(int id)
         {
@@ -34,8 +37,9 @@ namespace DL
         }
         public async Task changeFamilyDetails(int id, FamilyDTO familyToUpdate)
         {
-            Family family1 = new Family { Id = familyToUpdate.Id, FamilyName = familyToUpdate.FamilyName, MotherName = familyToUpdate.MotherName, FatherName = familyToUpdate.FatherName, MotherPhone = familyToUpdate.MotherPhone, FatherPhone = familyToUpdate.FatherPhone, Email = familyToUpdate.Email, Address = familyToUpdate.Address, EnableFatherWhatsApp = familyToUpdate.EnableFatherWhatsApp, EnableMotherWhatsApp = familyToUpdate.EnableMotherWhatsApp, StationId = familyToUpdate.StationId, UserId = familyToUpdate.UserId };
-            Family family = await SchoolBusContext.Families.FindAsync(id);
+              Family family1 = new Family { Id = id, FamilyName = familyToUpdate.FamilyName, MotherName = familyToUpdate.MotherName, FatherName = familyToUpdate.FatherName, MotherPhone = familyToUpdate.MotherPhone, FatherPhone = familyToUpdate.FatherPhone, Email = familyToUpdate.Email, Address = familyToUpdate.Address, EnableFatherWhatsApp = familyToUpdate.EnableFatherWhatsApp, EnableMotherWhatsApp = familyToUpdate.EnableMotherWhatsApp, StationId = familyToUpdate.StationId, UserId = familyToUpdate.UserId };
+           // Family family1=IMapper.Map<FamilyDTO, Family>(familyToUpdate);
+              Family family = await SchoolBusContext.Families.FindAsync(id);
             SchoolBusContext.Entry(family).CurrentValues.SetValues(family1);
             await SchoolBusContext.SaveChangesAsync();
         }
