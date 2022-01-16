@@ -17,7 +17,7 @@ namespace SchoolBus
         public RatingMiddleware(RequestDelegate next)
         {
             _next = next;
-        }//
+        }
 
         public async Task Invoke(HttpContext httpContext,SchoolBusContext schoolBusContext)
         {
