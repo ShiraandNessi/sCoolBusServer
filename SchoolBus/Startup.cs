@@ -69,6 +69,8 @@ namespace SchoolBus
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolBus v1"));
             }
 
+            app.UseErrorsMiddleware();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

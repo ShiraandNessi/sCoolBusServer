@@ -56,9 +56,9 @@ namespace SchoolBus.Controllers
 
         // PUT api/<DriverController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] DriverDTO driverToUpdate,string newPassword)
+        public async Task Put(int id, [FromBody] DriverDTO driverToUpdate,[FromQuery] UserDTO userDetails)
         {
-            await IDriverBL.changeDriverdetails(id, driverToUpdate,newPassword);
+            await IDriverBL.changeDriverdetails(id, driverToUpdate, userDetails.NewPassword);
         }
         
 

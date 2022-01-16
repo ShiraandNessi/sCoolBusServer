@@ -41,9 +41,9 @@ namespace SchoolBus.Controllers
 
         // PUT api/<FamilyController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] FamilyDTO familyToUpdate,string newPassword)
+        public async Task Put(int id, [FromBody] FamilyDTO familyToUpdate, [FromQuery] UserDTO userDetails)
         {
-            await IFamilyBL.changeFamilyDetails(id, familyToUpdate, newPassword);
+            await IFamilyBL.changeFamilyDetails(id, familyToUpdate, userDetails.NewPassword);
         }
 
         // DELETE api/<FamilyController>/5
