@@ -22,9 +22,10 @@ namespace SchoolBus
         public async Task Invoke(HttpContext httpContext,SchoolBusContext schoolBusContext)
         {
             
-            await _next(httpContext);
+           
             Rating r = new Rating { Host = httpContext.Request.Host.ToString(), RecordDate = DateTime.Now, Method = httpContext.Request.Method, Path = httpContext.Request.Path };
-
+            await schoolBusContext.Ratings.AddAsync(r);
+            await _next(httpContext);
         }
     }
 

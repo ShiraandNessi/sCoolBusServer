@@ -19,6 +19,7 @@ namespace DL
         public async Task<List<Driver>> GetAllDrivers()
         {
              List<Driver> l=await SchoolBusContext.Drivers.ToListAsync();
+            throw new Exception("Nisayon");
             return l;
         }
         public async Task<Driver> GetDriverById(int id)
