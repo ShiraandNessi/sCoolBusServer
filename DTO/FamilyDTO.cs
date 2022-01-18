@@ -26,6 +26,7 @@ namespace DTO
      
         public bool EnableFatherWhatsApp { get; set; }
         public int UserId { get; set; }
+        [MinLength(3)]
         public string Password { get; set; }
 
         public int StationId { get; set; }

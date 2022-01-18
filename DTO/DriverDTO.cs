@@ -18,6 +18,7 @@ namespace DTO
         public string Email { get; set; }
 
         public int? UserId { get; set; }
+        [MinLength(3)]
         public string Password { get; set; }
        
 

@@ -17,6 +17,7 @@ namespace Entities
         }
 
         public int Id { get; set; }
+        [MinLength(3)]
         public string Password { get; set; }
         [EmailAddress]
         public string Email { get; set; }
