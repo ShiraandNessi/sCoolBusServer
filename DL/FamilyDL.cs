@@ -44,21 +44,7 @@ namespace DL
             await SchoolBusContext.SaveChangesAsync();
         }
 
-        public async Task removeFamily(int id)
-        {
-            Family family = await SchoolBusContext.Families.FindAsync(id);
-
-            if (family != null)
-            {
-                IUserDL.removeUser(family.UserId);
-                SchoolBusContext.Families.Remove(family);
-                await SchoolBusContext.SaveChangesAsync();
-            }
-            else
-            {
-                throw new Exception();
-            }
-        }
+        
         
     }
 }

@@ -11,7 +11,7 @@ namespace BL
         public Task<Driver> GatDriverById(int id);
         public Task<DriverDTO> AddNewDriver(DriverDTO newDriver);
         public Task changeDriverdetails(int id,DriverDTO driverToUpdate, string newPassword);
-        public  Task removeDriver(int id);
+        
 
     }
 }

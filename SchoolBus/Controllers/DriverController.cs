@@ -27,12 +27,8 @@ namespace SchoolBus.Controllers
         [HttpGet]
         public async Task<List<DriverDTO>> Get()
         {
-            List<DriverDTO> resDriers= new List<DriverDTO> { };
-           List<Driver> res = await IDriverBL.GatAllDrivers();
-            foreach(var i in res)
-            {
-                resDriers.Append( IMapper.Map<Driver,DriverDTO>(i));
-            }
+            List<Driver> res = await IDriverBL.GatAllDrivers();
+            List<DriverDTO> resDriers = IMapper.Map<List<Driver>, List<DriverDTO>>(res);
             return resDriers;
 
 
@@ -56,7 +52,7 @@ namespace SchoolBus.Controllers
 
         // PUT api/<DriverController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] DriverDTO driverToUpdate,[FromQuery] UserDTO userDetails)
+        public async Task Put(int id,[FromQuery] UserDTO userDetails ,[FromBody] DriverDTO driverToUpdate)
         {
             await IDriverBL.changeDriverdetails(id, driverToUpdate, userDetails.NewPassword);
         }
@@ -65,10 +61,6 @@ namespace SchoolBus.Controllers
         
 
         // DELETE api/<DriverController>/5
-        [HttpDelete("{id}")]
-        public async Task Delete(int id)
-        {
-            await IDriverBL.removeDriver(id);
-        }
+       
     }
 }

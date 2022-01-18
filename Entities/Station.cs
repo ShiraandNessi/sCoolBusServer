@@ -21,9 +21,9 @@ namespace Entities
         public double PointX { get; set; }
 
         public double PointY { get; set; }
-       
+       [JsonIgnore]
         public virtual ICollection<Family> Families { get; set; }
-
+        [JsonIgnore]
         public virtual ICollection<StationOfRoute> StationOfRoutes { get; set; }
     }
 }

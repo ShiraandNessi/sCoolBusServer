@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 #nullable disable
@@ -22,6 +23,7 @@ namespace Entities
         public string LastName { get; set; }
        
         public int Grade { get; set; }
+        [Phone]
        
         public string Phone { get; set; }
       

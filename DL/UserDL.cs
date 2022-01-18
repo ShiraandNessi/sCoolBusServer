@@ -24,7 +24,7 @@ namespace DL
         }
         public async Task<User> AddNewFamilyUser(FamilyDTO newFamily)
         {
-            User newUser = new User() { Email = newFamily.Email, Password = newFamily.Password, UserTypeId = (int)UserTypeEnum.Driver };
+            User newUser = new User() { Email = newFamily.Email, Password = newFamily.Password, UserTypeId = (int)UserTypeEnum.Family+1 };
             await schoolBusContext.Users.AddAsync(newUser);
              await schoolBusContext.SaveChangesAsync();
             return newUser;
@@ -33,7 +33,7 @@ namespace DL
         public async Task<User> AddNewDriverUser(DriverDTO newDriver)
         {
 
-            User newUser = new User() { Email = newDriver.Email, Password = newDriver.Password, UserTypeId = (int)UserTypeEnum.Driver };
+            User newUser = new User() { Email = newDriver.Email, Password = newDriver.Password, UserTypeId = (int)UserTypeEnum.Driver+1 };
             await schoolBusContext.Users.AddAsync(newUser);
             await schoolBusContext.SaveChangesAsync();
             return newUser;

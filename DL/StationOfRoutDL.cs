@@ -20,7 +20,7 @@ namespace DL
             StationOfRoute stationOfRoute = new StationOfRoute() { StationId = newStationId, RouteId = routeId };
             await SchoolBusContext.StationOfRoutes.AddAsync(stationOfRoute);
             await SchoolBusContext.SaveChangesAsync();
-            return;
+           
         }
 
         public async Task changeDetailsStationOfRoute(int id, int newStationId, int newRoutId, TimeSpan? newAssumTime)

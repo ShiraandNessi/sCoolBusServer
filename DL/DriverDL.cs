@@ -19,7 +19,6 @@ namespace DL
         public async Task<List<Driver>> GetAllDrivers()
         {
              List<Driver> l=await SchoolBusContext.Drivers.ToListAsync();
-            throw new Exception("Nisayon");
             return l;
         }
         public async Task<Driver> GetDriverById(int id)
@@ -31,9 +30,9 @@ namespace DL
         }
         public async Task<DriverDTO> AddNewDriver(DriverDTO newDriver)
         {
-            Driver driver = new Driver {Id=newDriver.Id,Email=newDriver.Email,Phone=newDriver.Phone,FirstName=newDriver.FirstName,LastName=newDriver.LastName,UserId=newDriver.Id};
+            Driver driver = new Driver {Email=newDriver.Email,Phone=newDriver.Phone,FirstName=newDriver.FirstName,LastName=newDriver.LastName,UserId=newDriver.UserId};
             await SchoolBusContext.Drivers.AddAsync(driver);
-             await  SchoolBusContext.SaveChangesAsync();
+            await  SchoolBusContext.SaveChangesAsync();
             newDriver.Id = driver.Id;
             return newDriver;
         }
@@ -44,15 +43,6 @@ namespace DL
             SchoolBusContext.Entry(driver).CurrentValues.SetValues(driver1);
             await SchoolBusContext.SaveChangesAsync();
         }
-        public async Task removeDriver(int id)
-        {
-            Driver driver = await SchoolBusContext.Drivers.FindAsync(id);
-            if(driver!=null)
-            {
-                SchoolBusContext.Drivers.Remove(driver);
-                await SchoolBusContext.SaveChangesAsync();
-            }
-
-        }
+     
     }
 }

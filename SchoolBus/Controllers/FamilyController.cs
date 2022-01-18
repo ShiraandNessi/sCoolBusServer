@@ -46,11 +46,6 @@ namespace SchoolBus.Controllers
             await IFamilyBL.changeFamilyDetails(id, familyToUpdate, userDetails.NewPassword);
         }
 
-        // DELETE api/<FamilyController>/5
-        [HttpDelete("{id}")]
-        public async Task Delete(int id)
-        {
-            IFamilyBL.removeFamily(id);
-        }
+       
     }
 }

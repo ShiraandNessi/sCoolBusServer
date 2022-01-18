@@ -9,6 +9,6 @@ namespace DL
         Task<Family> GetFamilyById(int id);
         Task<FamilyDTO> AddNewFamily(FamilyDTO newFamily);
         Task changeFamilyDetails(int id, FamilyDTO familyToUpdate);
-        Task removeFamily(int id);
+        
     }
 }

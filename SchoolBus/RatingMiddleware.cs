@@ -23,8 +23,9 @@ namespace SchoolBus
         {
             
            
-            Rating r = new Rating { Host = httpContext.Request.Host.ToString(), RecordDate = DateTime.Now, Method = httpContext.Request.Method, Path = httpContext.Request.Path };
+            Rating r = new Rating { Host = httpContext.Request.Host.ToString(), RecordDate = DateTime.Now, Method = httpContext.Request.Method, Path = httpContext.Request.Path,UserAgent=httpContext.Request.Headers["UserAgent"] };
             await schoolBusContext.Ratings.AddAsync(r);
+            await schoolBusContext.SaveChangesAsync();
             await _next(httpContext);
         }
     }

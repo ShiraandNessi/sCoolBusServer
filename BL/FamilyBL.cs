@@ -34,10 +34,6 @@ namespace BL
             await IFamilyDL.changeFamilyDetails(id, familyToUpdate);
         }
 
-        public async Task removeFamily(int id)
-        {
-         
-            IFamilyDL.removeFamily(id);
-        }
+       
     }
 }

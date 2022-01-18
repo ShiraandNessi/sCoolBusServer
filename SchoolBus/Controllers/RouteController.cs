@@ -46,16 +46,7 @@ namespace SchoolBus.Controllers
              await IRouteBL.addNewStationToRoute(routeId, newStationId);
         }
 
-        // PUT api/<RouteController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<RouteController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
+       
     }
 }
