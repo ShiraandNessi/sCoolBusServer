@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using SchoolBus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace SchoolBus
             _next = next;
         }
 
-        public Task Invoke(HttpContext httpContext)
+        public async Task Invoke(HttpContext httpContext)
         {
             httpContext.Response.GetTypedHeaders().CacheControl =
             new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
@@ -25,7 +26,11 @@ namespace SchoolBus
                 Public = true,
                 MaxAge = TimeSpan.FromSeconds(10)
             };
-            return _next(httpContext);
+            httpContext.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
+                    new string[] { "Accept-Encoding" };
+
+             await _next(httpContext);
+        }
         }
     }
 
@@ -37,4 +42,4 @@ namespace SchoolBus
             return builder.UseMiddleware<CacheMiddleware>();
         }
     }
-}
+
