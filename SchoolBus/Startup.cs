@@ -49,7 +49,7 @@ namespace SchoolBus
             services.AddScoped<IFamilyDL, FamilyDL>();
             services.AddScoped<IRouteBL, RouteBL>();
             services.AddScoped<IRouteDL, RouteDL>();
-            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBusHome1")), ServiceLifetime.Scoped);
+            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBus")), ServiceLifetime.Scoped);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -62,8 +62,7 @@ namespace SchoolBus
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             logger.LogInformation("server is up!!:)");
-            app.UseRatingMiddleware();
-            app.UseCacheMiddleware();
+
             app.UseErrorsMiddleware();
             if (env.IsDevelopment())
             {
@@ -71,8 +70,20 @@ namespace SchoolBus
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolBus v1"));
             }
-
-            
+            //app.UseResponseCaching();
+            //app.UseCacheMiddleware();
+            app.Map("/api", app2 =>
+            {
+                app2.UseHttpsRedirection();
+                app2.UseRouting();
+                app2.UseRatingMiddleware();
+                app2.UseAuthorization();
+                
+                app2.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
+            });
 
             app.UseHttpsRedirection();
 

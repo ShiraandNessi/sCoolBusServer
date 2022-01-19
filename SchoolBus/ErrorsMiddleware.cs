@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SchoolBus
@@ -26,7 +27,7 @@ namespace SchoolBus
             catch(Exception ex)
             {
                 logger.LogInformation(ex.Message);
-                httpContext.Response.StatusCode = 500;
+                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
             
         }
