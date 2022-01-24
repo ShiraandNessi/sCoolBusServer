@@ -18,14 +18,13 @@ namespace DL
         }
         public async Task<List<Driver>> GetAllDrivers()
         {
-             List<Driver> l=await SchoolBusContext.Drivers.ToListAsync();
             List<Driver> drivers = await SchoolBusContext.Drivers.Include(a => a.User).Where(dri => dri.User.Id == dri.UserId).ToListAsync();
             return drivers;
         }
         public async Task<Driver> GetDriverById(int id)
         {
-            Driver diver = await SchoolBusContext.Drivers.FindAsync(id);
-            List<Driver> drivers = await SchoolBusContext.Drivers.Include(a => a.User).Where(dri => dri.User.Id == dri.UserId).ToListAsync();
+            Driver driver = await SchoolBusContext.Drivers.FindAsync(id);
+            List<Driver> drivers = await SchoolBusContext.Drivers.Include(a => a.User).Where(dri => dri.User.Id ==driver.UserId).ToListAsync();
             return drivers[0];
         }
         public async Task<DriverDTO> AddNewDriver(DriverDTO newDriver)
@@ -38,7 +37,7 @@ namespace DL
         }
         public async Task changeDriverdetails(int id, DriverDTO driverToUpdate)
         {
-            Driver driver1 = new Driver {Id=id,Email= driverToUpdate.Email,Phone= driverToUpdate.Phone,FirstName= driverToUpdate.FirstName,LastName= driverToUpdate.LastName,UserId= driverToUpdate.Id};
+            Driver driver1 = new Driver {Id=id,Email= driverToUpdate.Email,Phone= driverToUpdate.Phone,FirstName= driverToUpdate.FirstName,LastName= driverToUpdate.LastName,UserId= driverToUpdate.UserId};
             Driver driver = await SchoolBusContext.Drivers.FindAsync(id);
             SchoolBusContext.Entry(driver).CurrentValues.SetValues(driver1);
             await SchoolBusContext.SaveChangesAsync();

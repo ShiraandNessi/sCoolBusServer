@@ -49,7 +49,7 @@ namespace SchoolBus
             services.AddScoped<IFamilyDL, FamilyDL>();
             services.AddScoped<IRouteBL, RouteBL>();
             services.AddScoped<IRouteDL, RouteDL>();
-            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBusHome1")), ServiceLifetime.Scoped);
+            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBus")), ServiceLifetime.Scoped);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -69,12 +69,12 @@ namespace SchoolBus
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolBus v1"));
             }
-            app.UseResponseCaching();
-            app.UseCacheMiddleware();
+          //  app.UseResponseCaching();
+         //   app.UseCacheMiddleware();
             app.UseCors("AllowAll");
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseErrorsMiddleware();
+        //    app.UseErrorsMiddleware();
             app.Map("/api", app2 =>
             {
                 app2.UseRouting();
