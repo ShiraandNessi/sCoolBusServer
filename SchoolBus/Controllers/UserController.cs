@@ -12,6 +12,7 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class UserController : ControllerBase
     {
         IUserBL IUserBL;
@@ -23,8 +24,8 @@ namespace SchoolBus.Controllers
 
         // GET api/<UserController>/5
        // [HttpGet("{email}/{password}")]
-        [HttpGet]
-        public async Task<User> Get( [FromQuery] UserDTO userDet)
+        [HttpPost("login")]
+        public async Task<User> Get(UserDTO userDet)
         {
             return await IUserBL.GetUser(userDet.Email, userDet.Password);
         }

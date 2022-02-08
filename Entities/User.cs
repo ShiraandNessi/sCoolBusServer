@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 #nullable disable
@@ -30,5 +31,7 @@ namespace Entities
         public virtual ICollection<Family> Families { get; set; }
         [JsonIgnore]
         public virtual ICollection<Messege> Messeges { get; set; }
+        [NotMapped]
+        public string Token { get; set; }
     }
 }

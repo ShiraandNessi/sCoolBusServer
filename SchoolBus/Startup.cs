@@ -16,7 +16,10 @@ using System.Threading.Tasks;
 using DL;
 using BL;
 using AutoMapper;
-//
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication;
+
 namespace SchoolBus
 {
     public class Startup
@@ -51,9 +54,52 @@ namespace SchoolBus
             services.AddScoped<IRouteDL, RouteDL>();
             services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBus")), ServiceLifetime.Scoped);
             services.AddControllers();
+            var key = Encoding.ASCII.GetBytes(Configuration.GetSection("key").Value);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchoolBus", Version = "v1" });
+
+                // To Enable authorization using Swagger (JWT)    
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+
+                    }
+                });
             });
            
         }
@@ -69,12 +115,11 @@ namespace SchoolBus
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolBus v1"));
             }
-          //  app.UseResponseCaching();
-         //   app.UseCacheMiddleware();
-            app.UseCors("AllowAll");
+            app.UseResponseCaching();
+            app.UseCacheMiddleware();
             app.UseHttpsRedirection();
             app.UseRouting();
-        //    app.UseErrorsMiddleware();
+            app.UseErrorsMiddleware();
             app.Map("/api", app2 =>
             {
                 app2.UseRouting();

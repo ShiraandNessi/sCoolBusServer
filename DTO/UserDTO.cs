@@ -12,8 +12,8 @@ namespace DTO
         [EmailAddress]
         public string? Email { get; set; }
         [MinLength(3)]
-        public string? Password { get; set; }
         public string? NewPassword { get; set; }
-
+        public string Password { get; set; }
+        //public string Token { get; set; }
     }
 }
