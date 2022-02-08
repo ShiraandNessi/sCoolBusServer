@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SchoolBus
 {
-   public class AuthorizationFuncs
+   public class AuthorizationFuncs: IAuthorizationFuncs
     {
         public  SchoolBusContext _schoolBusContext { get; set; }
         public  AuthorizationFuncs(SchoolBusContext SchoolBusContext)

@@ -15,20 +15,24 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class DriverController : ControllerBase
     {
         IDriverBL IDriverBL;
         IMapper IMapper;
-        public DriverController(IDriverBL IDriverBL, IMapper IMapper)
+        IAuthorizationFuncs IAuthorizationFuncs;
+        public DriverController(IDriverBL IDriverBL, IMapper IMapper, IAuthorizationFuncs IAuthorizationFuncs)
         {
             this.IDriverBL = IDriverBL;
            this.IMapper = IMapper;
+            this.IAuthorizationFuncs = IAuthorizationFuncs;
         }
         // GET: api/<DriverController>
         [HttpGet]
         public async Task<List<DriverDTO>> Get()
         {
+            //if(IAuthorizationFuncs.isAthorized(HttpContext.User.Identity.Name))
+            string s = HttpContext.User.Identity.Name;
             List<Driver> res = await IDriverBL.GatAllDrivers();
             List<DriverDTO> resDriers = IMapper.Map<List<Driver>, List<DriverDTO>>(res);
             return resDriers;

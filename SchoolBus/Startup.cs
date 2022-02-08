@@ -19,6 +19,7 @@ using AutoMapper;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace SchoolBus
 {
@@ -52,6 +53,7 @@ namespace SchoolBus
             services.AddScoped<IFamilyDL, FamilyDL>();
             services.AddScoped<IRouteBL, RouteBL>();
             services.AddScoped<IRouteDL, RouteDL>();
+            services.AddScoped<IAuthorizationFuncs, AuthorizationFuncs>();
             services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBus")), ServiceLifetime.Scoped);
             services.AddControllers();
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("key").Value);
@@ -115,11 +117,11 @@ namespace SchoolBus
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolBus v1"));
             }
-            app.UseResponseCaching();
-            app.UseCacheMiddleware();
+            //app.UseResponseCaching();
+            //app.UseCacheMiddleware();
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseErrorsMiddleware();
+            //app.UseErrorsMiddleware();
             app.Map("/api", app2 =>
             {
                 app2.UseRouting();
