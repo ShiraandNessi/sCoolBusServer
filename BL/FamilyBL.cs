@@ -22,6 +22,10 @@ namespace BL
         {
             return await IFamilyDL.GetFamilyById(id);
         }
+        public async Task<Family> GetFamilyByUserId(int userId)
+        {
+            return await IFamilyDL.GetFamilyByUserId(userId);
+        }
         public async Task<FamilyDTO> AddNewFamily(FamilyDTO newFamily)
         {
             User newUser = await IUserDL.AddNewFamilyUser(newFamily);

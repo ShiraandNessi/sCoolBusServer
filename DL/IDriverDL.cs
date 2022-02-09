@@ -11,6 +11,9 @@ namespace DL
         public Task<Driver> GetDriverById(int id);
         public Task<DriverDTO> AddNewDriver(DriverDTO newDriver);
         public Task changeDriverdetails(int id,DriverDTO driverToUpdate);
-       
+        public  Task<Driver> GatUserById(int userId);
+
+
+
     }
 }

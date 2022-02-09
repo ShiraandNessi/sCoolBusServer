@@ -27,6 +27,12 @@ namespace DL
             List<Driver> drivers = await SchoolBusContext.Drivers.Include(a => a.User).Where(dri => dri.User.Id ==driver.UserId).ToListAsync();
             return drivers[0];
         }
+        public async Task<Driver> GatUserById(int userId)
+        {
+            List<Driver> drivers = await SchoolBusContext.Drivers.Include(a => a.User).Where(dri => dri.UserId ==userId).ToListAsync();
+            return drivers[0];
+        }
+
         public async Task<DriverDTO> AddNewDriver(DriverDTO newDriver)
         {
             Driver driver = new Driver {Email=newDriver.Email,Phone=newDriver.Phone,FirstName=newDriver.FirstName,LastName=newDriver.LastName,UserId=newDriver.UserId};

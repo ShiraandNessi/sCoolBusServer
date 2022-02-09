@@ -24,8 +24,9 @@ namespace SchoolBus.Controllers
 
         // GET api/<UserController>/5
        // [HttpGet("{email}/{password}")]
-        [HttpPost("login")]
-        public async Task<User> Get(UserDTO userDet)
+        [HttpPost]
+        public async Task<User> Get([FromBody]UserDTO userDet)
+
         {
             return await IUserBL.GetUser(userDet.Email, userDet.Password);
         }

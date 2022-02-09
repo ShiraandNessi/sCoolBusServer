@@ -31,7 +31,12 @@ namespace SchoolBus.Controllers
             Family res= await IFamilyBL.GetFamilyById(id);
             return _IMapper.Map<Family,FamilyDTO>(res);
         }
-
+        [HttpGet("user/{userId}")]
+        public async Task<FamilyDTO> GetFamilyByUserId(int userId)
+        {
+            Family res = await IFamilyBL.GetFamilyByUserId(userId);
+            return _IMapper.Map<Family, FamilyDTO>(res);
+        }
         // POST api/<FamilyController>
         [HttpPost]
         public async Task<FamilyDTO> Post( [FromBody] FamilyDTO newFamily)

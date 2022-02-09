@@ -48,7 +48,14 @@ namespace SchoolBus.Controllers
             Driver res= await IDriverBL.GatDriverById(id);
             return IMapper.Map<Driver, DriverDTO>(res);
         }
+        [HttpGet("user/{userId}")]
+        public async Task<DriverDTO> GetDriverByUserId(int userId)
+        {
 
+            Driver res = await IDriverBL.GatUserById(userId);
+            return IMapper.Map<Driver, DriverDTO>(res);
+             
+        }
         // POST api/<DriverController>
         [HttpPost]
         public async Task<DriverDTO> Post([FromBody] DriverDTO newDriver)

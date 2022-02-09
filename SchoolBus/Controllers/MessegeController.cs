@@ -24,7 +24,8 @@ namespace SchoolBus.Controllers
         [HttpGet("{driverId}")]
         public async Task<List<Messege>> Get(int driverId)
         {
-            return await IMessegeBL.GetAllMessegesByDriverId(driverId);
+            var x= await IMessegeBL.GetAllMessegesByDriverId(driverId);
+            return x;
         }
 
        

@@ -27,6 +27,13 @@ namespace DL
            List<Family>  families=await SchoolBusContext.Families.Include(a => a.User).Where(fam => fam.User.Id == family.UserId).Include(a => a.Station).Where(fam => fam.Station.Id == family.StationId).ToListAsync();
             return families[0];
         }
+        public async Task<Family> GetFamilyByUserId(int userId)
+        {
+            List<Family> families = await SchoolBusContext.Families.Where(fam => fam.UserId == userId).ToListAsync();
+            Family f = families[0];
+            List<Family> families2 = await SchoolBusContext.Families.Include(a => a.User).Where(fam => fam.User.Id == f.UserId).Include(a => a.Station).Where(fam => fam.Station.Id == f.StationId).ToListAsync();
+            return families2[0];
+        }
         public async Task<FamilyDTO> AddNewFamily(FamilyDTO newFamily)
         {
             Family family = new Family { FamilyName = newFamily.FamilyName, MotherName = newFamily.MotherName, FatherName = newFamily.FatherName, MotherPhone = newFamily.MotherPhone, FatherPhone = newFamily.FatherPhone, Email = newFamily.Email, Address = newFamily.Address, EnableFatherWhatsApp = newFamily.EnableFatherWhatsApp, EnableMotherWhatsApp = newFamily.EnableMotherWhatsApp, StationId = newFamily.StationId, UserId = newFamily.UserId };
