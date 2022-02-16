@@ -16,7 +16,9 @@ namespace SchoolBus
         }
         public  bool isAthorized(int id)
         {
-            if(_schoolBusContext.Users.Find(id).UserType.Id == (int)(UserTypeEnum.Manager))
+            User d = _schoolBusContext.Users.Find(id);
+            var x = (int)(UserTypeEnum.Driver) +1;
+            if (d.UserTypeId == x)
             {
                 return true;
             }

@@ -193,7 +193,12 @@ namespace DL
 
             modelBuilder.Entity<StationOfRoute>(entity =>
             {
+                entity.HasKey(e => e.Id)
+                    .IsClustered(false);
+
                 entity.ToTable("StationOfRoute");
+
+                entity.HasIndex(e => e.Id, "IX_StationOfRoute");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
@@ -281,6 +286,10 @@ namespace DL
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Salt)
+                    .HasMaxLength(50)
+                    .HasColumnName("salt");
 
                 entity.HasOne(d => d.UserType)
                     .WithMany(p => p.Users)

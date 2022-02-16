@@ -113,7 +113,7 @@ namespace SchoolBus
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+              //  app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolBus v1"));
             }
@@ -124,8 +124,9 @@ namespace SchoolBus
             //app.UseErrorsMiddleware();
             app.Map("/api", app2 =>
             {
-                app2.UseRouting();
                 app2.UseRatingMiddleware();
+                app.UseAuthentication();
+                app2.UseRouting();
                 app2.UseAuthorization();
                 
                 app2.UseEndpoints(endpoints =>
@@ -134,7 +135,7 @@ namespace SchoolBus
                 });
             });
 
-            app.UseAuthorization();
+       
 
             app.UseEndpoints(endpoints =>
             {

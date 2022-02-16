@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,7 +16,7 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class DriverController : ControllerBase
     {
         IDriverBL IDriverBL;
@@ -31,8 +32,11 @@ namespace SchoolBus.Controllers
         [HttpGet]
         public async Task<List<DriverDTO>> Get()
         {
-            //if(IAuthorizationFuncs.isAthorized(HttpContext.User.Identity.Name))
             string s = HttpContext.User.Identity.Name;
+            if (!IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name)))
+            {
+                throw new HttpResponseException(HttpStatusCode.Unauthorized); ;
+            }
             List<Driver> res = await IDriverBL.GatAllDrivers();
             List<DriverDTO> resDriers = IMapper.Map<List<Driver>, List<DriverDTO>>(res);
             return resDriers;
