@@ -16,18 +16,24 @@ namespace BL
     public class UserBL : IUserBL
     {
         IUserDL IUserDl;
+        AuthorizationFuncs _passwordHashHelper;
         public IConfiguration _configuration { get; }
-        public UserBL(IUserDL IUserDl, IConfiguration configuration)
+        public UserBL(IUserDL IUserDl, IConfiguration configuration, AuthorizationFuncs _passwordHashHelper)
         {
             this.IUserDl = IUserDl;
             _configuration = configuration;
+           this._passwordHashHelper= _passwordHashHelper;
         }
         public async Task<User> GetUser(string email, string password)
         {
 
-            User user =await IUserDl.GetUser(email, password);
-            if (user == null) return null;
-      
+    
+
+            User user = await IUserDl.GetUser(email);
+            string Hashedpassword = _passwordHashHelper.HashPassword(password, user.Salt, 1000, 8);
+            if (!Hashedpassword.Equals(user.Password.TrimEnd()))
+                return null;
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration.GetSection("key").Value);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -41,6 +47,7 @@ namespace BL
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
+
             return user;
         }
     }

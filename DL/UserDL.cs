@@ -11,20 +11,24 @@ namespace DL
 {//
     public class UserDL : IUserDL
     {
-        SchoolBusContext schoolBusContext;
-        public UserDL(SchoolBusContext schoolBusContext)
+        AuthorizationFuncs _passwordHashHelper;
+          SchoolBusContext schoolBusContext;
+        public UserDL(SchoolBusContext schoolBusContext, AuthorizationFuncs _passwordHashHelper)
         {
             this.schoolBusContext = schoolBusContext;
+            this._passwordHashHelper = _passwordHashHelper;
         }
-        public async Task<User> GetUser(string email, string password)
+        public async Task<User> GetUser(string email)
         {
-            var res = await schoolBusContext.Users.SingleOrDefaultAsync( u => u.Email== email && u.Password== password);
+            var res = await schoolBusContext.Users.SingleOrDefaultAsync( u => u.Email== email);
 
             return res;
         }
         public async Task<User> AddNewFamilyUser(FamilyDTO newFamily)
         {
-            User newUser = new User() { Email = newFamily.Email, Password = newFamily.Password, UserTypeId = (int)UserTypeEnum.Family+1 };
+            User newUser = new User() { Email = newFamily.Email ,Password= newFamily.Password, UserTypeId = (int)UserTypeEnum.Family+1 };
+            newUser.Salt = _passwordHashHelper.GenerateSalt(8);
+            newUser.Password = _passwordHashHelper.HashPassword(newUser.Password, newUser.Salt, 1000, 8);
             await schoolBusContext.Users.AddAsync(newUser);
              await schoolBusContext.SaveChangesAsync();
             return newUser;
@@ -33,7 +37,9 @@ namespace DL
         public async Task<User> AddNewDriverUser(DriverDTO newDriver)
         {
 
-            User newUser = new User() { Email = newDriver.Email, Password = newDriver.Password, UserTypeId = (int)UserTypeEnum.Driver+1 };
+            User newUser = new User() { Email = newDriver.Email, UserTypeId = (int)UserTypeEnum.Driver+1 };
+            newUser.Salt = _passwordHashHelper.GenerateSalt(8);
+            newUser.Password = _passwordHashHelper.HashPassword(newUser.Password, newUser.Salt, 1000, 8);
             await schoolBusContext.Users.AddAsync(newUser);
             await schoolBusContext.SaveChangesAsync();
             return newUser;

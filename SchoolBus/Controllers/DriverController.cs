@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BL;
+using DL;
 using DTO;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,7 +24,8 @@ namespace SchoolBus.Controllers
         IDriverBL IDriverBL;
         IMapper IMapper;
         IAuthorizationFuncs IAuthorizationFuncs;
-        public DriverController(IDriverBL IDriverBL, IMapper IMapper, IAuthorizationFuncs IAuthorizationFuncs)
+       
+        public DriverController( IDriverBL IDriverBL, IMapper IMapper, IAuthorizationFuncs IAuthorizationFuncs)
         {
             this.IDriverBL = IDriverBL;
            this.IMapper = IMapper;
@@ -30,12 +33,12 @@ namespace SchoolBus.Controllers
         }
         // GET: api/<DriverController>
         [HttpGet]
-        public async Task<List<DriverDTO>> Get()
+        public async Task<List<DriverDTO>> Get(HttpContext httpContext)
         {
             string s = HttpContext.User.Identity.Name;
             if (!IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name)))
             {
-                throw new HttpResponseException(HttpStatusCode.Unauthorized); ;
+                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             }
             List<Driver> res = await IDriverBL.GatAllDrivers();
             List<DriverDTO> resDriers = IMapper.Map<List<Driver>, List<DriverDTO>>(res);
