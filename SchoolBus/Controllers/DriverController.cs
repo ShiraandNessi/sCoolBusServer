@@ -18,25 +18,28 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   // [Authorize]
     public class DriverController : ControllerBase
     {
         IDriverBL IDriverBL;
         IMapper IMapper;
-        IAuthorizationFuncs IAuthorizationFuncs;
-       
-        public DriverController( IDriverBL IDriverBL, IMapper IMapper, IAuthorizationFuncs IAuthorizationFuncs)
+        IAuthorizationFuncs _IAuthorizationFuncs;
+        HttpContext httpContext;
+
+
+        public DriverController( IDriverBL IDriverBL, IMapper IMapper, IAuthorizationFuncs IAuthorizationFuncs, HttpContext httpContext)
         {
             this.IDriverBL = IDriverBL;
            this.IMapper = IMapper;
-            this.IAuthorizationFuncs = IAuthorizationFuncs;
+            this._IAuthorizationFuncs = IAuthorizationFuncs;
+            this.httpContext = httpContext;
         }
         // GET: api/<DriverController>
         [HttpGet]
-        public async Task<List<DriverDTO>> Get(HttpContext httpContext)
+        public async Task<List<DriverDTO>> Get()
         {
             string s = HttpContext.User.Identity.Name;
-            if (!IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name)))
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Manager)))
             {
                 httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             }
@@ -51,13 +54,23 @@ namespace SchoolBus.Controllers
         [HttpGet("{id}")]
         public async Task<DriverDTO> Get(int id)
         {
-           
+            //string s = HttpContext.User.Identity.Name;
+            //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver)))
+            //{
+            //    httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //}
+
             Driver res= await IDriverBL.GatDriverById(id);
             return IMapper.Map<Driver, DriverDTO>(res);
         }
         [HttpGet("user/{userId}")]
         public async Task<DriverDTO> GetDriverByUserId(int userId)
         {
+            string s = HttpContext.User.Identity.Name;
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver) ))
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            }
 
             Driver res = await IDriverBL.GatUserById(userId);
             return IMapper.Map<Driver, DriverDTO>(res);
@@ -67,13 +80,24 @@ namespace SchoolBus.Controllers
         [HttpPost]
         public async Task<DriverDTO> Post([FromBody] DriverDTO newDriver)
         {
-           return await IDriverBL.AddNewDriver(newDriver);
+            string s = HttpContext.User.Identity.Name;
+            if (!_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Manager))
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            }
+            return await IDriverBL.AddNewDriver(newDriver);
+            
         }
 
         // PUT api/<DriverController>/5
         [HttpPut("{id}")]
         public async Task Put(int id,[FromQuery] UserDTO userDetails ,[FromBody] DriverDTO driverToUpdate)
         {
+            string s = HttpContext.User.Identity.Name;
+            if (!_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver))
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            }
             await IDriverBL.changeDriverdetails(id, driverToUpdate, userDetails.NewPassword);
         }
         

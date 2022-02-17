@@ -20,7 +20,8 @@ namespace DTO
         public int? UserId { get; set; }
         [MinLength(3)]
         public string Password { get; set; }
-       
+
+
 
 
     }

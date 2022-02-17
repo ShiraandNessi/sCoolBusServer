@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using BL;
+using DL;
 using DTO;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 
@@ -15,25 +19,35 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FamilyController : ControllerBase
     {
         IFamilyBL IFamilyBL;
         IMapper _IMapper;
-        public FamilyController(IFamilyBL IFamilyBL, IMapper IMapper)
+        IAuthorizationFuncs _IAuthorizationFuncs;
+        HttpContext httpContext;
+        public FamilyController(IFamilyBL IFamilyBL, IMapper IMapper, IAuthorizationFuncs IAuthorizationFuncs , HttpContext httpContext)
         {
             this.IFamilyBL = IFamilyBL;
             _IMapper = IMapper;
+            _IAuthorizationFuncs = IAuthorizationFuncs;
+            this.httpContext = httpContext;
         }
         // GET api/<FamilyController>/5
         [HttpGet("{id}")]
         public async Task<FamilyDTO> Get(int id)
         {
+            
             Family res= await IFamilyBL.GetFamilyById(id);
             return _IMapper.Map<Family,FamilyDTO>(res);
         }
         [HttpGet("user/{userId}")]
         public async Task<FamilyDTO> GetFamilyByUserId(int userId)
-        {
+        { 
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            }
             Family res = await IFamilyBL.GetFamilyByUserId(userId);
             return _IMapper.Map<Family, FamilyDTO>(res);
         }
@@ -41,6 +55,10 @@ namespace SchoolBus.Controllers
         [HttpPost]
         public async Task<FamilyDTO> Post( [FromBody] FamilyDTO newFamily)
         {
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            }
             return await IFamilyBL.AddNewFamily(newFamily);
         }
 
@@ -48,6 +66,10 @@ namespace SchoolBus.Controllers
         [HttpPut("{id}")]
         public async Task Put(int id, [FromBody] FamilyDTO familyToUpdate, [FromQuery] UserDTO userDetails)
         {
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            }
             await IFamilyBL.changeFamilyDetails(id, familyToUpdate, userDetails.NewPassword);
         }
 

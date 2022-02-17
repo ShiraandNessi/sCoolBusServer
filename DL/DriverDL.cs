@@ -36,6 +36,7 @@ namespace DL
         public async Task<DriverDTO> AddNewDriver(DriverDTO newDriver)
         {
             Driver driver = new Driver {Email=newDriver.Email,Phone=newDriver.Phone,FirstName=newDriver.FirstName,LastName=newDriver.LastName,UserId=newDriver.UserId};
+    
             await SchoolBusContext.Drivers.AddAsync(driver);
             await  SchoolBusContext.SaveChangesAsync();
             newDriver.Id = driver.Id;

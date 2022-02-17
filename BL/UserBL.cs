@@ -16,9 +16,9 @@ namespace BL
     public class UserBL : IUserBL
     {
         IUserDL IUserDl;
-        AuthorizationFuncs _passwordHashHelper;
+        IAuthorizationFuncs _passwordHashHelper;
         public IConfiguration _configuration { get; }
-        public UserBL(IUserDL IUserDl, IConfiguration configuration, AuthorizationFuncs _passwordHashHelper)
+        public UserBL(IUserDL IUserDl, IConfiguration configuration,IAuthorizationFuncs _passwordHashHelper)
         {
             this.IUserDl = IUserDl;
             _configuration = configuration;
@@ -26,9 +26,6 @@ namespace BL
         }
         public async Task<User> GetUser(string email, string password)
         {
-
-    
-
             User user = await IUserDl.GetUser(email);
             string Hashedpassword = _passwordHashHelper.HashPassword(password, user.Salt, 1000, 8);
             if (!Hashedpassword.Equals(user.Password.TrimEnd()))

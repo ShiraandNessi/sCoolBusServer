@@ -1,5 +1,6 @@
 ﻿using BL;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MessegeController : ControllerBase
     {
         IMessegeBL IMessegeBL;

@@ -40,6 +40,10 @@ namespace DL
             SchoolBusContext.Entry(student).CurrentValues.SetValues(studentToUpdate);
             await SchoolBusContext.SaveChangesAsync();
         }
+        public async Task<List<Student>> GetStudentByRouteId(int routeId)
+        {
+            return await SchoolBusContext.Students.Where(student => student.RoutId == routeId).ToListAsync();
+        }
         public async Task removeStudent(int id)
         {
             Student student = await SchoolBusContext.Students.FindAsync(id);

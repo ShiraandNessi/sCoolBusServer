@@ -29,6 +29,8 @@ namespace DTO
         [MinLength(3)]
         public string Password { get; set; }
 
+        public string Salt { get; set; }
+
         public int StationId { get; set; }
 
         public string StationAddress { get; set; }

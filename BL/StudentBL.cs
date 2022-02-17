@@ -41,5 +41,9 @@ namespace BL
         {
             await IStudentDL.removeStudent(id);
         }
+        public async Task<List<Student>> GetStudentByRouteId(int routeId)
+        {
+            return await IStudentDL.GetStudentByRouteId(routeId);
+        }
     }
 }

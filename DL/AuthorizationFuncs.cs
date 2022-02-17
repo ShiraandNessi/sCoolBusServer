@@ -16,16 +16,17 @@ namespace DL
         {
             _schoolBusContext = SchoolBusContext;
         }
-        public  bool isAthorized(int id)
+        public  bool isAthorized(int id,int userType)
         {
             User d = _schoolBusContext.Users.Find(id);
-            var x = (int)(UserTypeEnum.Driver) +1;
-            if (d.UserTypeId == x)
+            int x = userType + 1;
+            if (d.UserTypeId == x || d.UserTypeId == (int)UserTypeEnum.Manager+1)
             {
                 return true;
             }
             else
             {
+    
                 return false;
             }
         }

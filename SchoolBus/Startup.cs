@@ -54,7 +54,7 @@ namespace SchoolBus
             services.AddScoped<IRouteBL, RouteBL>();
             services.AddScoped<IRouteDL, RouteDL>();
             services.AddScoped<IAuthorizationFuncs, AuthorizationFuncs>();
-            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBus")), ServiceLifetime.Scoped);
+            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBusHome")), ServiceLifetime.Scoped);
             services.AddControllers();
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("key").Value);
             services.AddAuthentication(x =>
@@ -125,7 +125,7 @@ namespace SchoolBus
             app.Map("/api", app2 =>
             {
                 app2.UseRatingMiddleware();
-                app.UseAuthentication();
+                app2.UseAuthentication();
                 app2.UseRouting();
                 app2.UseAuthorization();
                 
