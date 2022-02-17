@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DTO
 {
    public class UserDTO
-    {
+    {//
         [EmailAddress]
         public string? Email { get; set; }
         [MinLength(3)]
