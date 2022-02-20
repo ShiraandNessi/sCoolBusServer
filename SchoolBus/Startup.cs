@@ -20,6 +20,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace SchoolBus
 {
@@ -40,6 +41,7 @@ namespace SchoolBus
             services.AddScoped<IStationOfRoutDL, StationOfRoutDL>();
             services.AddResponseCaching();
             services.AddScoped<IStationDL, StationDL>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IStationBL, StationBL>();
             services.AddScoped<IStudentDL, StudentDL>();
             services.AddScoped<IStudentBL, StudentBL>();
@@ -54,7 +56,7 @@ namespace SchoolBus
             services.AddScoped<IRouteBL, RouteBL>();
             services.AddScoped<IRouteDL, RouteDL>();
             services.AddScoped<IAuthorizationFuncs, AuthorizationFuncs>();
-            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBusHome")), ServiceLifetime.Scoped);
+            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBus")), ServiceLifetime.Scoped);
             services.AddControllers();
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("key").Value);
             services.AddAuthentication(x =>
@@ -109,33 +111,40 @@ namespace SchoolBus
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            app.UseErrorsMiddleware();
             logger.LogInformation("server is up!!:)");
 
             if (env.IsDevelopment())
             {
-              //  app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolBus v1"));
             }
-            //app.UseResponseCaching();
-            //app.UseCacheMiddleware();
+            
+           
             app.UseHttpsRedirection();
+            app.UseResponseCaching();
+            app.UseCacheMiddleware();
+            app.UseAuthentication();
             app.UseRouting();
-            //app.UseErrorsMiddleware();
+           
+          
+
             app.Map("/api", app2 =>
-            {
-                app2.UseRatingMiddleware();
-                app2.UseAuthentication();
+            {   
+                app2.UseAuthentication(); 
                 app2.UseRouting();
+                app2.UseRatingMiddleware();
                 app2.UseAuthorization();
-                
+
                 app2.UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
                 });
             });
+            app.UseRatingMiddleware();
+            app.UseAuthorization();
 
-       
 
             app.UseEndpoints(endpoints =>
             {

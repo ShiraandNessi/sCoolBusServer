@@ -24,10 +24,10 @@ namespace SchoolBus.Controllers
         IDriverBL IDriverBL;
         IMapper IMapper;
         IAuthorizationFuncs _IAuthorizationFuncs;
-        HttpContext httpContext;
+        IHttpContextAccessor httpContext;
 
 
-        public DriverController( IDriverBL IDriverBL, IMapper IMapper, IAuthorizationFuncs IAuthorizationFuncs, HttpContext httpContext)
+        public DriverController( IDriverBL IDriverBL, IMapper IMapper, IAuthorizationFuncs IAuthorizationFuncs, IHttpContextAccessor httpContext)
         {
             this.IDriverBL = IDriverBL;
            this.IMapper = IMapper;
@@ -41,7 +41,7 @@ namespace SchoolBus.Controllers
             string s = HttpContext.User.Identity.Name;
             if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Manager)))
             {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                httpContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             }
             List<Driver> res = await IDriverBL.GatAllDrivers();
             List<DriverDTO> resDriers = IMapper.Map<List<Driver>, List<DriverDTO>>(res);
@@ -66,11 +66,11 @@ namespace SchoolBus.Controllers
         [HttpGet("user/{userId}")]
         public async Task<DriverDTO> GetDriverByUserId(int userId)
         {
-            string s = HttpContext.User.Identity.Name;
-            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver) ))
-            {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            }
+            //string s = HttpContext.User.Identity.Name;
+            //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver) ))
+            //{
+            //    httpContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //}
 
             Driver res = await IDriverBL.GatUserById(userId);
             return IMapper.Map<Driver, DriverDTO>(res);
@@ -78,13 +78,14 @@ namespace SchoolBus.Controllers
         }
         // POST api/<DriverController>
         [HttpPost]
+        [AllowAnonymous]
         public async Task<DriverDTO> Post([FromBody] DriverDTO newDriver)
         {
-            string s = HttpContext.User.Identity.Name;
-            if (!_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Manager))
-            {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            }
+            //string s = httpContext.HttpContext.User.Identity.Name;
+            //if (!_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Manager))
+            //{
+            //    httpContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //}
             return await IDriverBL.AddNewDriver(newDriver);
             
         }
@@ -96,7 +97,7 @@ namespace SchoolBus.Controllers
             string s = HttpContext.User.Identity.Name;
             if (!_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver))
             {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                httpContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             }
             await IDriverBL.changeDriverdetails(id, driverToUpdate, userDetails.NewPassword);
         }
