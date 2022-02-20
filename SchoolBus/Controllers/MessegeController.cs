@@ -13,7 +13,7 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class MessegeController : ControllerBase
     {
         IMessegeBL IMessegeBL;

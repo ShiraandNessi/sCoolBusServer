@@ -13,7 +13,7 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+
     public class RouteController : ControllerBase
     {
         IRouteBL IRouteBL;
