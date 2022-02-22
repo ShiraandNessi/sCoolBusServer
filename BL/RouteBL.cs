@@ -27,7 +27,7 @@ namespace BL
         {
             return await IRouteDL.getAllRoutes();
         }
-        public async Task<List<Route>> getAllRoutesByDriverId(int driverId)
+        public async Task<Route> getAllRoutesByDriverId(int driverId)
         {
             return await IRouteDL.getAllRoutesByDriverId(driverId);
         }

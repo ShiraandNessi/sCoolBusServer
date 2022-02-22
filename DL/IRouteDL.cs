@@ -7,7 +7,7 @@ namespace DL
     public interface IRouteDL
     {
          Task<List<Route>> getAllRoutes();
-         Task<List<Route>> getAllRoutesByDriverId(int driverId);
+         Task<Route> getAllRoutesByDriverId(int driverId);
         Task<Route> addNewRoute(Route newRoute);
     }
 }

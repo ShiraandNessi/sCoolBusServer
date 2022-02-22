@@ -16,18 +16,18 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class StudentController : ControllerBase
     {
         IStudentBL IStudentBL;
         IAuthorizationFuncs _IAuthorizationFuncs;
-        HttpContext httpContext;
+     
         
-        public StudentController(IStudentBL IStudentBL , IAuthorizationFuncs IAuthorizationFuncs, HttpContext httpContext)
+        public StudentController(IStudentBL IStudentBL , IAuthorizationFuncs IAuthorizationFuncs)
         {
             this.IStudentBL = IStudentBL;
             _IAuthorizationFuncs = IAuthorizationFuncs;
-            this.httpContext = httpContext;
+           
         }
         // GET: api/<StudentController>
         [HttpGet]
@@ -35,7 +35,7 @@ namespace SchoolBus.Controllers
         {
             if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Manager)))
             {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             }
             return await IStudentBL.GetAllStudents();
         }
@@ -46,7 +46,7 @@ namespace SchoolBus.Controllers
         {
             if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
             {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+               HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             }
             return await IStudentBL.GetStudentById(id);
         }
@@ -58,7 +58,7 @@ namespace SchoolBus.Controllers
 
             if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
             {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             }
             return await IStudentBL.AddNewStudent(student);
         }
@@ -70,7 +70,7 @@ namespace SchoolBus.Controllers
 
             if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
             {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             }
             await IStudentBL.changeStudentDetails(id, studentToUpdate);
         }
@@ -80,7 +80,7 @@ namespace SchoolBus.Controllers
         {
             if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
             {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             }
             await IStudentBL.removeStudent(id);
         }
@@ -90,7 +90,7 @@ namespace SchoolBus.Controllers
         {
             if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
             {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             }
             return await IStudentBL.GetStudentByFamilyId(familyId);
         }
@@ -98,10 +98,10 @@ namespace SchoolBus.Controllers
         [HttpGet("route/{routeId}")]
         public async Task<List<Student>> GetStudentByRouteId(int routeId)
         {
-            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver)))
-            {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            }
+            //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver)))
+            //{
+            //    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //}
             return await IStudentBL.GetStudentByRouteId(routeId);
         }
 

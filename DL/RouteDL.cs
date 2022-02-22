@@ -27,9 +27,10 @@ namespace DL
         {
             return await SchoolBusContext.Routes.ToListAsync();
         }
-        public async Task<List<Route>> getAllRoutesByDriverId(int driverId)
+        public async Task<Route> getAllRoutesByDriverId(int driverId)
         {
-            return await SchoolBusContext.Routes.Where(route => route.DriverId == driverId).ToListAsync();
+            var res= await SchoolBusContext.Routes.Where(route => route.DriverId == driverId).ToListAsync();
+            return res[0];
         }
     }
 }
