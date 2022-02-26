@@ -38,11 +38,11 @@ namespace SchoolBus.Controllers
         [HttpGet]
         public async Task<List<DriverDTO>> Get()
         {
-            string s = HttpContext.User.Identity.Name;
-            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Manager)))
-            {
-                httpContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            }
+            //string s = HttpContext.User.Identity.Name;
+            //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Manager)))
+            //{
+            //    httpContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //}
             List<Driver> res = await IDriverBL.GatAllDrivers();
             List<DriverDTO> resDriers = IMapper.Map<List<Driver>, List<DriverDTO>>(res);
             return resDriers;
