@@ -9,5 +9,6 @@ namespace DL
     public interface IStudentStatuseDL
     {
         public Task<bool> sentMessege(int studentId);
+        public Task<bool> isSentMessege(int studentId);
     }
 }
