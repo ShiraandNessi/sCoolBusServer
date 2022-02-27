@@ -58,7 +58,7 @@ namespace SchoolBus
             services.AddScoped<IRouteBL, RouteBL>();
             services.AddScoped<IRouteDL, RouteDL>();
             services.AddScoped<IAuthorizationFuncs, AuthorizationFuncs>();
-            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBusHome1")), ServiceLifetime.Scoped);
+            services.AddDbContext<SchoolBusContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolBus")), ServiceLifetime.Scoped);
             services.AddControllers();
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("key").Value);
             services.AddAuthentication(x =>
