@@ -15,6 +15,7 @@ namespace Entities
         public int DriverId { get; set; }
   
         public string MessageText { get; set; }
+        public bool? IsRead { get; set; }
         [JsonIgnore]
         public int RoutId { get; set; }
        

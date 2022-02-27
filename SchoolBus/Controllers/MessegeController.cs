@@ -26,11 +26,17 @@ namespace SchoolBus.Controllers
         [HttpGet("{driverId}")]
         public async Task<List<Messege>> Get(int driverId)
         {
-            var x= await IMessegeBL.GetAllMessegesByDriverId(driverId);
+            var x = await IMessegeBL.GetAllMessegesByDriverId(driverId);
             return x;
         }
 
-       
+        [HttpGet("{id}/read")]
+        public async Task get(int id)
+        {
+             await IMessegeBL.isRead(id);
+            return;
+        }
+
         // POST api/<MessegesController>
         [HttpPost]
         public async Task<Messege> Post([FromBody] Messege newMessege)

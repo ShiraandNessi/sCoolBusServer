@@ -25,5 +25,11 @@ namespace BL
         {
             return await IMessegeDL.AddNewMessege(newMessege);
         }
+        public async Task isRead(int id)
+        {
+            await IMessegeDL.isRead(id);
+            return;
+        }
+
     }
 }

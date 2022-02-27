@@ -17,7 +17,7 @@ namespace SchoolBus.Controllers
         {
             _IStudentStatuseBL = IStudentStatuseBL;
         }
-        // GET: api/<StudentController>
+        // GET: api/<StudentController> 
         [HttpGet("{studentId}")]
         public async Task<bool> Get(int studentId)
         {

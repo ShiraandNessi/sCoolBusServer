@@ -28,5 +28,13 @@ namespace DL
                 await SchoolBusContext.SaveChangesAsync();
             return newMessege;
         }
+        public async Task isRead(int id)
+        {
+            Messege mess = await SchoolBusContext.Messeges.FindAsync(id);
+            mess.IsRead = !mess.IsRead;
+          await  SchoolBusContext.SaveChangesAsync();
+            return;
+
+        }
     }
 }

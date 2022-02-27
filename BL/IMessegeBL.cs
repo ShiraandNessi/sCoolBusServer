@@ -8,6 +8,7 @@ namespace BL
     {
         Task<List<Messege>> GetAllMessegesByDriverId(int driverId);
         Task<Messege> AddNewMessege(Messege newMessege);
+        Task isRead(int id);
         
     }
 }
