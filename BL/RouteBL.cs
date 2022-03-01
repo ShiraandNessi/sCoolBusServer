@@ -35,5 +35,9 @@ namespace BL
         {
             await IStationOfRoutDL.addNewStationToRoute(routeId, newStationId);
         }
+        public async Task<Route> getRouteById(int id)
+        {
+            return await IRouteDL.getRouteById(id);
+        }
     }
 }

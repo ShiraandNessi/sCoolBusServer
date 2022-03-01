@@ -135,6 +135,11 @@ namespace DL
                     .HasForeignKey(d => d.MessageTypeId)
                     .HasConstraintName("FK_Messeges_MessageType");
 
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.Messeges)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK_Messeges_Students");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Messeges)
                     .HasForeignKey(d => d.UserId)
@@ -230,17 +235,13 @@ namespace DL
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.ImageRoute)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.ImageRoute).IsRequired();
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Passport)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Passport).IsRequired();
 
                 entity.Property(e => e.Phone).HasMaxLength(50);
 

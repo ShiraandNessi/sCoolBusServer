@@ -38,6 +38,8 @@ namespace SchoolBus.Controllers
         {
             return await IStationBL.getStationById(id);
         }
+        // GET api/<StationController>/5
+     
 
         //[Route("[action]/{routeId}")]
         [HttpGet("route/{routeId}")]
@@ -65,6 +67,7 @@ namespace SchoolBus.Controllers
         {
             return await IStationBL.addNewStation(newStation);
         }
+        
 
 
    

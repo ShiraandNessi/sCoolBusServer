@@ -9,5 +9,6 @@ namespace DL
          Task<List<Route>> getAllRoutes();
          Task<Route> getAllRoutesByDriverId(int driverId);
         Task<Route> addNewRoute(Route newRoute);
+        Task<Route> getRouteById(int id);
     }
 }

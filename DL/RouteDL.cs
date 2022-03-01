@@ -32,5 +32,9 @@ namespace DL
             var res= await SchoolBusContext.Routes.Where(route => route.DriverId == driverId).ToListAsync();
             return res[0];
         }
+        public async Task<Route> getRouteById(int id)
+        {
+            return await SchoolBusContext.Routes.FindAsync(id);
+        }
     }
 }

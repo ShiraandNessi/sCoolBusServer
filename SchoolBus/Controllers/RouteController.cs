@@ -29,10 +29,16 @@ namespace SchoolBus.Controllers
         }
 
         // GET api/<RouteController>/5
-        [HttpGet("{driverId}")]
-        public async Task<Route> Get(int driverId)
+        [HttpGet("driver/{driverId}")]
+        public async Task<Route> GetByDriverId(int driverId)
         {
             return await IRouteBL.getAllRoutesByDriverId(driverId);
+        }
+        // GET api/<RouteController>/5
+        [HttpGet("{id}")]
+        public async Task<Route> Get(int id)
+        {
+            return await IRouteBL.getRouteById(id);
         }
 
         // POST api/<RouteController>

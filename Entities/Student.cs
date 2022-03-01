@@ -38,6 +38,8 @@ namespace Entities
         [JsonIgnore]
         public virtual Route Rout { get; set; }
         [JsonIgnore]
+        public virtual ICollection<Messege> Messeges { get; set; }
+        [JsonIgnore]
         public virtual ICollection<StudentStatus> StudentStatuses { get; set; }
     }
 }

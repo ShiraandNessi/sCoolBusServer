@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace SchoolBus
 {
+
     public class Startup
     {
         public Startup(IConfiguration configuration)

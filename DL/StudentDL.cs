@@ -15,7 +15,11 @@ namespace DL
         {
             this.SchoolBusContext = SchoolBusContext;
         }
-
+        public async Task<int> GetCountOfStudentsBystationId(int stationId, int routeId)
+        {
+           var list= await SchoolBusContext.Students.Where(s => s.RoutId == routeId && s.Family.StationId == stationId).ToListAsync();
+            return list.Count();
+        }
         public async Task<List<Student>> GetAllStudents()
         {
             return await SchoolBusContext.Students.ToListAsync();

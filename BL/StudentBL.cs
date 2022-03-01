@@ -15,7 +15,12 @@ namespace BL
         {
             this.IStudentDL = IStudentDL;
         }
+        public async Task<int> GetCountOfStudentsBystationId(int stationId, int routeId)
 
+        {
+            return await IStudentDL.GetCountOfStudentsBystationId(stationId,  routeId);
+        }
+      
         public async Task<List<Student>> GetAllStudents()
         {
             return await IStudentDL.GetAllStudents();

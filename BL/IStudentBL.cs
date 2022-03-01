@@ -13,6 +13,8 @@ namespace BL
         Task changeStudentDetails(int id, Student studentToUpdate);
         Task<List<Student>> GetStudentByRouteId(int routeId);
         Task removeStudent(int id);
-    
+        Task<int> GetCountOfStudentsBystationId(int stationId, int routeId);
+
+
     }
 }
