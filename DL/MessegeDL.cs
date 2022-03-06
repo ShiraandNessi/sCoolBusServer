@@ -24,6 +24,7 @@ namespace DL
 
         public async Task<Messege> AddNewMessege(Messege newMessege)
         {
+            newMessege.MessageTypeId = newMessege.MessageTypeId + 1;
             await SchoolBusContext.Messeges.AddAsync(newMessege);
                 await SchoolBusContext.SaveChangesAsync();
             return newMessege;

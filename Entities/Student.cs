@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 #nullable disable
 
 namespace Entities
-{
+{//
     public partial class Student
     {
         public Student()
@@ -32,7 +32,7 @@ namespace Entities
         public int RoutId { get; set; }
         
         public string? ImageRoute { get; set; }
-        [JsonIgnore]
+        [JsonIgnore]//
 
         public virtual Family Family { get; set; }
         [JsonIgnore]

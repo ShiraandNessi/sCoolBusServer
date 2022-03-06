@@ -32,6 +32,7 @@ namespace BL
         }
         public async Task<Student> AddNewStudent(Student student)
         {
+            ////student.Passport = "M:\\sCoolBusClient\\sCoolBusClient\\src\\assets\\1.png";
             return await IStudentDL.AddNewStudent(student);
         }
         public async Task<List<Student>> GetStudentByFamilyId(int familyId)
