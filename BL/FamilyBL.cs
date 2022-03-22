@@ -34,6 +34,7 @@ namespace BL
         }
         public async Task changeFamilyDetails(int id,FamilyDTO familyToUpdate,string newPassword)
         {
+            //change the email and pass in userDL
             await IUserDL.changeUserdetails(familyToUpdate.UserId, familyToUpdate.Password, newPassword, familyToUpdate.Email);
             await IFamilyDL.changeFamilyDetails(id, familyToUpdate);
         }

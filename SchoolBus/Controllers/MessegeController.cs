@@ -30,6 +30,7 @@ namespace SchoolBus.Controllers
             return x;
         }
 
+        //mark the messege as read/unread
         [HttpGet("{id}/read")]
         public async Task get(int id)
         {

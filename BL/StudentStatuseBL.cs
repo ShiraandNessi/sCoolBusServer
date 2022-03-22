@@ -15,22 +15,25 @@ namespace BL
    public class StudentStatuseBL:IStudentStatuseBL
     {
         IStudentStatuseDL _IStudentStatuseDL;
+        IStudentDL _IStudentDL;
         SchoolBusContext _SchoolBusContext;
-        public StudentStatuseBL(IStudentStatuseDL IStudentStatuseDL, SchoolBusContext SchoolBusContext)
+        public StudentStatuseBL(IStudentStatuseDL IStudentStatuseDL, SchoolBusContext SchoolBusContext , IStudentDL IStudentDL)
         {
             _IStudentStatuseDL = IStudentStatuseDL;
-            _SchoolBusContext = SchoolBusContext;
+            _IStudentDL = IStudentDL;
+            //_SchoolBusContext = SchoolBusContext;
         }
         public async Task<bool> sentMessege(int studentId)
         {
+            //checking if the student already got a mail
             if (await _IStudentStatuseDL.isSentMessege(studentId))
                 return true;
             else
             {
-                List<Student> student = await _SchoolBusContext.Students.Where(s => s.Id == studentId).ToListAsync();
-
-                List<Family> family = await _SchoolBusContext.Families.Where(f => f.Id == student[0].FamilyId).ToListAsync();
-                MailAddress to = new MailAddress(family[0].Email);
+                //find the current user
+                Student student = await _IStudentDL.GetStudentById(studentId);
+                //send a mail
+                MailAddress to = new MailAddress(student.Family.Email);
                 MailAddress from = new MailAddress("SchoolBusProject2022@gmail.com");
                 MailMessage message = new MailMessage(from, to);
                 message.Subject = "Hi!!";

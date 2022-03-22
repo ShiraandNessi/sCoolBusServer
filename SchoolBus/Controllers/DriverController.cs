@@ -34,6 +34,7 @@ namespace SchoolBus.Controllers
             this._IAuthorizationFuncs = IAuthorizationFuncs;
           
         }
+
         // GET: api/<DriverController>
         [HttpGet]
         public async Task<List<DriverDTO>> Get()
@@ -41,7 +42,7 @@ namespace SchoolBus.Controllers
             //string s = HttpContext.User.Identity.Name;
             //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Manager)))
             //{
-            //    httpContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             //}
             List<Driver> res = await IDriverBL.GatAllDrivers();
             List<DriverDTO> resDriers = IMapper.Map<List<Driver>, List<DriverDTO>>(res);
@@ -57,7 +58,7 @@ namespace SchoolBus.Controllers
             //string s = HttpContext.User.Identity.Name;
             //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver)))
             //{
-            //    httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //    Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             //}
 
             Driver res= await IDriverBL.GatDriverById(id);
@@ -69,7 +70,7 @@ namespace SchoolBus.Controllers
             //string s = HttpContext.User.Identity.Name;
             //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver) ))
             //{
-            //    httpContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             //}
 
             Driver res = await IDriverBL.GatUserById(userId);
@@ -84,7 +85,7 @@ namespace SchoolBus.Controllers
             //string s = httpContext.HttpContext.User.Identity.Name;
             //if (!_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Manager))
             //{
-            //    httpContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             //}
             return await IDriverBL.AddNewDriver(newDriver);
             
@@ -97,15 +98,9 @@ namespace SchoolBus.Controllers
             //string s = HttpContext.User.Identity.Name;
             //if (!_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver))
             //{
-            //    httpContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             //}
             await IDriverBL.changeDriverdetails(id, driverToUpdate, userDetails.NewPassword);
         }
-        
-
-        
-
-        // DELETE api/<DriverController>/5
-       
     }
 }

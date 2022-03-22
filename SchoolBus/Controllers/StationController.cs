@@ -41,7 +41,6 @@ namespace SchoolBus.Controllers
         // GET api/<StationController>/5
      
 
-        //[Route("[action]/{routeId}")]
         [HttpGet("route/{routeId}")]
         public async Task<List<StationRouteDTO>> GetStationsByRouteId(int routeId)
         {

@@ -83,11 +83,15 @@ namespace SchoolBus.Controllers
             //}
             await IStudentBL.removeStudent(id);
         }
+
+        //return the count of the student in a station
         [HttpGet("count/{routeId}/{stationId}")]
         public async Task<int> GetCountOfStudentsBystationId(int stationId, int routeId)
         {
             return await IStudentBL.GetCountOfStudentsBystationId(stationId,  routeId);
         }
+
+
         [HttpGet("family/{familyId}")]
         public async Task<List<Student>> GetStudentByFamilyId(int familyId)
         {

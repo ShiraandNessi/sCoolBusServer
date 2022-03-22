@@ -24,11 +24,7 @@ namespace DL
         {
             return await SchoolBusContext.Stations.ToListAsync();
         }
-        //public async Task<List<Student>> GetStationsByDriverId(int driverId)
-        //{
-        //    SchoolBusContext.Stations.Join(SchoolBusContext.Drivers, s => s
-        //    return await SchoolBusContext.Stations
-        //}
+
         public async Task<Station> addNewStation(Station newStation)
         {
             await SchoolBusContext.Stations.AddAsync(newStation);
