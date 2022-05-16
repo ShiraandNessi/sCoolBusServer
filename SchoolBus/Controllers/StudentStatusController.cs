@@ -19,11 +19,13 @@ namespace SchoolBus.Controllers
         }
         // GET: api/<StudentController> 
         [HttpGet("{studentId}")]
-        public async Task<bool> Get(int studentId)
+        public async Task<bool> Get(int studentId , int driverId)
         {
 
-            return await _IStudentStatuseBL.sentMessege(studentId);
+            return await _IStudentStatuseBL.sentMessege(studentId, driverId);
         }
+
+
     }
  
     

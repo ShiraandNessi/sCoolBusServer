@@ -8,6 +8,6 @@ namespace BL
 {
     public interface IStudentStatuseBL
     {
-        public Task<bool> sentMessege(int StudentBLId);
+        public Task<bool> sentMessege(int StudentBLId, int driverId);
     }
 }
