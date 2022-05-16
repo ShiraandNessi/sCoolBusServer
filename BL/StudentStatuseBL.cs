@@ -13,20 +13,25 @@ using Google.Maps.DistanceMatrix;
 
 namespace BL
 {
-   public class StudentStatuseBL:IStudentStatuseBL
+    public class StudentStatuseBL : IStudentStatuseBL
     {
         IStudentStatuseDL _IStudentStatuseDL;
         IStudentDL _IStudentDL;
         SchoolBusContext _SchoolBusContext;
-        IDriverDL _IDriverDl;
-        public StudentStatuseBL(IStudentStatuseDL IStudentStatuseDL, SchoolBusContext SchoolBusContext , IStudentDL IStudentDL , IDriverDL IDriverDl)
+        IDriverDL _IDriverDL;
+        IFamilyDL _IFamilyDL;
+        IStationDL _IStationDL;
+        public StudentStatuseBL(IStationDL IStationDL, IFamilyDL IFamilyDL, IStudentStatuseDL IStudentStatuseDL, SchoolBusContext SchoolBusContext, IStudentDL IStudentDL, IDriverDL IDriverDL)
         {
+            _IFamilyDL = IFamilyDL;
             _IStudentStatuseDL = IStudentStatuseDL;
             _IStudentDL = IStudentDL;
-            _IDriverDl = IDriverDl;
+            _IDriverDL = IDriverDL;
+            _IStationDL = IStationDL;
+
             //_SchoolBusContext = SchoolBusContext;
         }
-        public async Task<bool> sentMessege(int studentId,int driverId)
+        public async Task<bool> sentMessege(int studentId, int driverId)
         {
             //checking if the student already got a mail
             if (await _IStudentStatuseDL.isSentMessege(studentId))
@@ -35,7 +40,7 @@ namespace BL
             {
                 //find the current user
                 Student student = await _IStudentDL.GetStudentById(studentId);
-                if (await distance(student , driverId))
+                if (await distance(student, driverId))
                 {
                     //send a mail
                     MailAddress to = new MailAddress(student.Family.Email);
@@ -73,12 +78,15 @@ namespace BL
             GoogleSigned googleSigned = new GoogleSigned("AIzaSyCR5cpWuGnLOHc-Vjvo0Xe6p91hdGH7FDo");
             DistanceMatrixService distanceMatrixService = new DistanceMatrixService(googleSigned);
             DistanceMatrixRequest request = new DistanceMatrixRequest();
-            Driver driver =await _IDriverDl.GetDriverById(driverId);
-            request.AddDestination(new LatLng(latitude:driver, longitude: -1.462131m));
-            request.AddOrigin(new LatLng(latitude: 53.434297m, longitude: -1.364678m));
-
+            Driver driver = await _IDriverDL.GetDriverById(driverId);
+            Family family = await _IFamilyDL.GetFamilyById(student.FamilyId);
+            Station station = await _IStationDL.getStationById(family.StationId);
+            request.AddDestination(new LatLng(latitude: Convert.ToDecimal(driver.CurrPositionX), longitude: Convert.ToDecimal(driver.CurrPositionY)));
+            request.AddOrigin(new LatLng(latitude: Convert.ToDecimal(station.PointX), longitude: Convert.ToDecimal(station.PointY)));
             request.Mode = TravelMode.driving;
-            distanceMatrixService.GetResponseAsync(request);
+            var x = await distanceMatrixService.GetResponseAsync(request);
+            return true;
         }
     }
 }
+
