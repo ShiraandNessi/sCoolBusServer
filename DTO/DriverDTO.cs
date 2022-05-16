@@ -16,7 +16,8 @@ namespace DTO
         public string Phone { get; set; }
         [EmailAddress]
         public string Email { get; set; }
-
+        public float CurrPositionX { get; set; }
+        public float CurrPositionY { get; set; }
         public int? UserId { get; set; }
         [MinLength(3)]
         public string Password { get; set; }

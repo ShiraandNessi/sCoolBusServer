@@ -44,14 +44,14 @@ namespace BL
                 {
                     //send a mail
                     MailAddress to = new MailAddress(student.Family.Email);
-                    MailAddress from = new MailAddress("SchoolBusProject2022@gmail.com");
+                    MailAddress from = new MailAddress("scoolBus@outlook.co.il");
                     MailMessage message = new MailMessage(from, to);
                     message.Subject = "Hi!!";
-                    message.Body = " schoolBus clousing!!" + student.FirstName + " must get down!!";
-                    SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                    message.Body = " schoolBus clousing!! " + student.FirstName + " must get down!!";
+                    SmtpClient SmtpServer = new SmtpClient("smtp.office365.com");
                     SmtpServer.Port = 587;
                     SmtpServer.UseDefaultCredentials = false;
-                    SmtpServer.Credentials = new System.Net.NetworkCredential("SchoolBusProject2022@gmail.com", "SchoolBus2022");
+                    SmtpServer.Credentials = new System.Net.NetworkCredential("scoolBus@outlook.co.il", "project2022");
                     SmtpServer.EnableSsl = true;
 
                     // code in brackets above needed if authentication required   
@@ -85,7 +85,10 @@ namespace BL
             request.AddOrigin(new LatLng(latitude: Convert.ToDecimal(station.PointX), longitude: Convert.ToDecimal(station.PointY)));
             request.Mode = TravelMode.driving;
             var x = await distanceMatrixService.GetResponseAsync(request);
-            return true;
+            if (x.Rows[0].Elements[0].duration.Value < 300)
+                return true;
+            else
+                return false;
         }
     }
 }

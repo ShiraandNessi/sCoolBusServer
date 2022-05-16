@@ -198,12 +198,10 @@ namespace DL
 
             modelBuilder.Entity<StationOfRoute>(entity =>
             {
-                entity.HasKey(e => e.Id)
-                    .IsClustered(false);
-
                 entity.ToTable("StationOfRoute");
 
-                entity.HasIndex(e => e.Id, "IX_StationOfRoute");
+                entity.HasIndex(e => e.Id, "IX_StationOfRoute")
+                    .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
