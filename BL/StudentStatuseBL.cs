@@ -35,7 +35,7 @@ namespace BL
         {
             //checking if the student already got a mail
             if (await _IStudentStatuseDL.isSentMessege(studentId))
-                return true;
+                return false;
             else
             {
                 //find the current user
@@ -47,15 +47,12 @@ namespace BL
                     MailAddress from = new MailAddress("scoolBus@outlook.co.il");
                     MailMessage message = new MailMessage(from, to);
                     message.Subject = "Hi!!";
-                    message.Body = " schoolBus clousing!! " + student.FirstName + " must get down!!";
+                    message.Body = " schoolBus clousing!! \n " + student.FirstName + " must get down!!";
                     SmtpClient SmtpServer = new SmtpClient("smtp.office365.com");
                     SmtpServer.Port = 587;
                     SmtpServer.UseDefaultCredentials = false;
                     SmtpServer.Credentials = new System.Net.NetworkCredential("scoolBus@outlook.co.il", "project2022");
                     SmtpServer.EnableSsl = true;
-
-                    // code in brackets above needed if authentication required   
-
                     try
                     {
                         SmtpServer.Send(message);
