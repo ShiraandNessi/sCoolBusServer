@@ -47,7 +47,7 @@ namespace BL
                     MailAddress from = new MailAddress("scoolBus@outlook.co.il");
                     MailMessage message = new MailMessage(from, to);
                     message.Subject = "Hi!!";
-                    message.Body = " schoolBus clousing!! \n " + student.FirstName + " must get down!!";
+                    message.Body = "!!The school bus is approaching \n " + student.FirstName + " !!must go down";
                     SmtpClient SmtpServer = new SmtpClient("smtp.office365.com");
                     SmtpServer.Port = 587;
                     SmtpServer.UseDefaultCredentials = false;
@@ -62,6 +62,7 @@ namespace BL
                         Console.WriteLine(ex);
                         return false;
                     }
+                    //update the file 'get alert' and return true
                     return await _IStudentStatuseDL.sentMessege(studentId);
                 }
                 else
