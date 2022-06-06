@@ -21,6 +21,7 @@ namespace SchoolBus.Controllers
         {
             this.IRouteBL = IRouteBL;
         }
+      
         // GET: api/<RouteController>
         [HttpGet]
         public async Task<List<Route>> Get()
@@ -34,6 +35,7 @@ namespace SchoolBus.Controllers
         {
             return await IRouteBL.getAllRoutesByDriverId(driverId);
         }
+        
         // GET api/<RouteController>/5
         [HttpGet("{id}")]
         public async Task<Route> Get(int id)
@@ -54,7 +56,5 @@ namespace SchoolBus.Controllers
              await IRouteBL.addNewStationToRoute(routeId, newStationId);
         }
 
-        
-       
     }
 }

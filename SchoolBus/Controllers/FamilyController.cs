@@ -19,7 +19,7 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class FamilyController : ControllerBase
     {
         IFamilyBL IFamilyBL;
@@ -43,11 +43,12 @@ namespace SchoolBus.Controllers
         }
         [HttpGet("user/{userId}")]
         public async Task<FamilyDTO> GetFamilyByUserId(int userId)
-        { 
-            //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
-            //{
-            //    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            //}
+        {
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            {
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return null;
+            }
             Family res = await IFamilyBL.GetFamilyByUserId(userId);
             return _IMapper.Map<Family, FamilyDTO>(res);
         }
@@ -56,10 +57,11 @@ namespace SchoolBus.Controllers
         [HttpPost]
         public async Task<FamilyDTO> Post( [FromBody] FamilyDTO newFamily)
         {
-            //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
-            //{
-            //   HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            //}
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            {
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return null;
+            }
             return await IFamilyBL.AddNewFamily(newFamily);
         }
 
@@ -67,10 +69,11 @@ namespace SchoolBus.Controllers
         [HttpPut("{id}")]
         public async Task Put(int id, [FromBody] FamilyDTO familyToUpdate, [FromQuery] UserDTO userDetails)
         {
-            //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
-            //{
-            //    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            //}
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            {
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return;
+            }
             await IFamilyBL.changeFamilyDetails(id, familyToUpdate, userDetails.NewPassword);
         }
 

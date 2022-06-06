@@ -28,8 +28,6 @@ namespace BL
             _IStudentDL = IStudentDL;
             _IDriverDL = IDriverDL;
             _IStationDL = IStationDL;
-
-            //_SchoolBusContext = SchoolBusContext;
         }
         public async Task<bool> sentMessege(int studentId, int driverId)
         {

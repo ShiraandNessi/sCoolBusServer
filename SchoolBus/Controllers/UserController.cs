@@ -23,7 +23,7 @@ namespace SchoolBus.Controllers
 
 
         // GET api/<UserController>/5
-       // [HttpGet("{email}/{password}")]
+        //Alert when the school bus apourching
         [HttpPost]
         public async Task<User> Get([FromBody]UserDTO userDet)
 

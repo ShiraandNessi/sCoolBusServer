@@ -15,7 +15,7 @@ namespace SchoolBus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class StationController : ControllerBase
     {
 
@@ -26,21 +26,23 @@ namespace SchoolBus.Controllers
             IStationBL = _IStationBL;
             IMapper = _IMapper;
         }
+        
         // GET api/<StationController>/5
         [HttpGet]
         public async Task<List<Station>> Get()
         {
             return await IStationBL.getAllStation();
         }
+        
         // GET api/<StationController>/5
         [HttpGet("{id}")]
         public async Task<Station> Get(int id)
         {
             return await IStationBL.getStationById(id);
         }
+        
         // GET api/<StationController>/5
      
-
         [HttpGet("route/{routeId}")]
         public async Task<List<StationRouteDTO>> GetStationsByRouteId(int routeId)
         {
@@ -50,7 +52,6 @@ namespace SchoolBus.Controllers
         }
         
         [HttpGet("driver/{driverId}")]
-
         public async Task<List<StationRouteDTO>> GetStationsByDriverId(int driverId)
         {
             List<StationOfRoute> res = await IStationBL.GetStationsByDriverId(driverId);
@@ -58,17 +59,12 @@ namespace SchoolBus.Controllers
 
         }
 
-
-
         // POST api/<StationController>
         [HttpPost]
         public async Task<Station> Post([FromBody] Station newStation)
         {
             return await IStationBL.addNewStation(newStation);
         }
-        
 
-
-   
     }
 }
