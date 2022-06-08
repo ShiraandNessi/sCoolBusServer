@@ -21,6 +21,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using SchoolBus.Middleware;
 
 namespace SchoolBus
 {
@@ -134,7 +135,8 @@ namespace SchoolBus
           
 
             app.Map("/api", app2 =>
-            {   
+            {
+                app.UseCSPMiddleware();//לא ידענו איפה זה אמור להיות ממוקם:)
                 app2.UseAuthentication(); 
                 app2.UseRouting();
                 app2.UseRatingMiddleware();
