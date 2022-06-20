@@ -32,8 +32,9 @@ namespace Entities
         public int RoutId { get; set; }
         
         public string? ImageRoute { get; set; }
-        [JsonIgnore]//
+        public string? Image { get; set; }
 
+        [JsonIgnore]
         public virtual Family Family { get; set; }
         [JsonIgnore]
         public virtual Route Rout { get; set; }

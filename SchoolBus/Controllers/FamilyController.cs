@@ -69,7 +69,7 @@ namespace SchoolBus.Controllers
         [HttpPut("{id}")]
         public async Task Put(int id, [FromBody] FamilyDTO familyToUpdate, [FromQuery] UserDTO userDetails)
         {
-            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            .if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
             {
                 HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 return;

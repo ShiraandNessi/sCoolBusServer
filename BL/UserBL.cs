@@ -27,10 +27,16 @@ namespace BL
         public async Task<User> GetUser(string email, string password)
         {
             User user = await IUserDl.GetUser(email);
-            //salt to teh password
-            string Hashedpassword = _passwordHashHelper.HashPassword(password, user.Salt, 1000, 8);
-            if (!Hashedpassword.Equals(user.Password.TrimEnd()))
+            if (user == null)
                 return null;
+            if (user.Salt != null)
+            {
+                //salt to teh password
+                string Hashedpassword = _passwordHashHelper.HashPassword(password, user.Salt, 1000, 8);
+
+                if (!Hashedpassword.Equals(user.Password.TrimEnd()))
+                    return null;
+            }
             //create a token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration.GetSection("key").Value);

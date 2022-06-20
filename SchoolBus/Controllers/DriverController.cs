@@ -56,12 +56,12 @@ namespace SchoolBus.Controllers
         [HttpGet("{id}")]
         public async Task<DriverDTO> Get(int id)
         {
-            string s = HttpContext.User.Identity.Name;
-            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver)))
-            {
-                Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                return null;
-            }
+            //string s = HttpContext.User.Identity.Name;
+            //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver)))
+            //{
+            //    Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //    return null;
+            //}
 
             Driver res= await IDriverBL.GatDriverById(id);
             return IMapper.Map<Driver, DriverDTO>(res);

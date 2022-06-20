@@ -85,14 +85,15 @@ namespace SchoolBus.Controllers
         }
 
         // POST api/<StudentController>
+        [Consumes("multipart/form-data")]
         [HttpPost]
-        public async Task<Student> Post([FromBody] Student student)
+        public async Task<Student> Post([FromForm] Student student)
         {
-            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
-            {
-                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                return null;
-            }
+            //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            //{
+            //    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //    return null;
+            //}
             return await IStudentBL.AddNewStudent(student);
         }
 
@@ -108,6 +109,7 @@ namespace SchoolBus.Controllers
             }
             await IStudentBL.changeStudentDetails(id, studentToUpdate);
         }
+
 
         // DELETE api/<DriverController>/5
         [HttpDelete("{id}")]
