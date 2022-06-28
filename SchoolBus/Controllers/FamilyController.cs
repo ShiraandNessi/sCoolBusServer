@@ -33,6 +33,7 @@ namespace SchoolBus.Controllers
             _IAuthorizationFuncs = IAuthorizationFuncs;
             
         }
+
         // GET api/<FamilyController>/5
         [HttpGet("{id}")]
         public async Task<FamilyDTO> Get(int id)
@@ -41,27 +42,20 @@ namespace SchoolBus.Controllers
             Family res= await IFamilyBL.GetFamilyById(id);
             return _IMapper.Map<Family,FamilyDTO>(res);
         }
+
+        [AllowAnonymous]
         [HttpGet("user/{userId}")]
         public async Task<FamilyDTO> GetFamilyByUserId(int userId)
         {
-            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
-            {
-                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                return null;
-            }
             Family res = await IFamilyBL.GetFamilyByUserId(userId);
             return _IMapper.Map<Family, FamilyDTO>(res);
         }
-       
+
         // POST api/<FamilyController>
         [HttpPost]
+        [AllowAnonymous]
         public async Task<FamilyDTO> Post( [FromBody] FamilyDTO newFamily)
         {
-            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
-            {
-                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                return null;
-            }
             return await IFamilyBL.AddNewFamily(newFamily);
         }
 
@@ -69,7 +63,7 @@ namespace SchoolBus.Controllers
         [HttpPut("{id}")]
         public async Task Put(int id, [FromBody] FamilyDTO familyToUpdate, [FromQuery] UserDTO userDetails)
         {
-            .if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
             {
                 HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 return;

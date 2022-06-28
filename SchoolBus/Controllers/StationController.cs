@@ -27,6 +27,7 @@ namespace SchoolBus.Controllers
             IMapper = _IMapper;
         }
         
+        [AllowAnonymous]
         // GET api/<StationController>/5
         [HttpGet]
         public async Task<List<Station>> Get()
