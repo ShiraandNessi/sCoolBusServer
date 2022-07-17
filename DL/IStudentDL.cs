@@ -13,6 +13,7 @@ namespace DL
         Task<Student> GetStudentById(int id);
         Task<List<Student>> GetStudentByRouteId(int routeId);
         Task removeStudent(int id);
+        Task<bool> saveImage(int id,string path);
        Task<int> GetCountOfStudentsBystationId(int stationId, int routeId);
 
 

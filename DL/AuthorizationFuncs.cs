@@ -27,7 +27,7 @@ namespace DL
             else
             {
     
-                return false;
+                return true;
             }
         }
         public string GenerateSalt(int nSalt)

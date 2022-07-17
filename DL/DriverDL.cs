@@ -44,7 +44,7 @@ namespace DL
         }
         public async Task changeDriverdetails(int id, DriverDTO driverToUpdate)
         {
-            Driver driver1 = new Driver {Id=id,Email= driverToUpdate.Email,Phone= driverToUpdate.Phone,FirstName= driverToUpdate.FirstName,LastName= driverToUpdate.LastName,UserId= driverToUpdate.UserId, CurrPositionX=driverToUpdate.CurrPositionX, CurrPositionY = driverToUpdate.CurrPositionY };
+            Driver driver1 = new Driver {Id=id,Email= driverToUpdate.Email,Phone= driverToUpdate.Phone,FirstName= driverToUpdate.FirstName,LastName= driverToUpdate.LastName,UserId= driverToUpdate.UserId};
             Driver driver = await SchoolBusContext.Drivers.FindAsync(id);
             SchoolBusContext.Entry(driver).CurrentValues.SetValues(driver1);
             await SchoolBusContext.SaveChangesAsync();

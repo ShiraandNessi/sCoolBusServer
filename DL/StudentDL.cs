@@ -28,6 +28,16 @@ namespace DL
         {
             return await SchoolBusContext.Students.FindAsync(id);
         }
+        public async Task<bool> saveImage(int id,string path)
+        {
+            Student s = await SchoolBusContext.Students.FindAsync(id);
+            if (s==null)
+                return false;
+            s.Passport = path;
+            await SchoolBusContext.SaveChangesAsync();
+            return true;
+
+        }
         public async Task<Student> AddNewStudent(Student student)
         {
             await SchoolBusContext.Students.AddAsync(student);

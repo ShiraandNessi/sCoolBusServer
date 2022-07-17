@@ -97,8 +97,9 @@ namespace SchoolBus.Controllers
                     
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return false;
             }
         }

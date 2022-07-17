@@ -198,10 +198,12 @@ namespace DL
 
             modelBuilder.Entity<StationOfRoute>(entity =>
             {
+                entity.HasKey(e => e.Id)
+                    .IsClustered(false);
+
                 entity.ToTable("StationOfRoute");
 
-                entity.HasIndex(e => e.Id, "IX_StationOfRoute")
-                    .IsUnique();
+                entity.HasIndex(e => e.Id, "IX_StationOfRoute");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
@@ -233,13 +235,13 @@ namespace DL
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.ImageRoute).IsRequired();
+                entity.Property(e => e.ImageRoute).HasMaxLength(50);
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Passport).IsRequired();
+                entity.Property(e => e.Passport).HasMaxLength(50);
 
                 entity.Property(e => e.Phone).HasMaxLength(50);
 

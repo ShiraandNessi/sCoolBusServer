@@ -27,14 +27,13 @@ namespace Entities
        
         public string Phone { get; set; }
       
-        public string Passport { get; set; }
+        public string? Passport { get; set; }
        
         public int RoutId { get; set; }
         
         public string? ImageRoute { get; set; }
-        public string? Image { get; set; }
+        [JsonIgnore]//
 
-        [JsonIgnore]
         public virtual Family Family { get; set; }
         [JsonIgnore]
         public virtual Route Rout { get; set; }

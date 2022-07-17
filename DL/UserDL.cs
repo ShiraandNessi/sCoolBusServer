@@ -51,7 +51,7 @@ namespace DL
         {
             User user = await schoolBusContext.Users.FindAsync(userId);
             string hashPassword = _passwordHashHelper.HashPassword(password, user.Salt, 1000, 8);
-            if (user!=null && user.Password == hashPassword)
+            if (user!=null && user.Password == hashPassword || user.Password==password)
             {
                 user.Password = _passwordHashHelper.HashPassword(newPassword, user.Salt, 1000, 8);
                 if(email!= user.Email)
