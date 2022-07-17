@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using DL;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+using System.IO;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SchoolBus.Controllers
@@ -52,48 +53,16 @@ namespace SchoolBus.Controllers
             return await IStudentBL.GetStudentById(id);
         }
 
-        //GET
-        //return the count of the student in a station
-        [HttpGet("count/{routeId}/{stationId}")]
-        public async Task<int> GetCountOfStudentsBystationId(int stationId, int routeId)
+        // POST api/<StudentController>
+        [HttpPost]
+        public async Task<Student> Post([FromBody] Student student)
         {
-            return await IStudentBL.GetCountOfStudentsBystationId(stationId, routeId);
-        }
-
-        //GET
-        [HttpGet("family/{familyId}")]
-        public async Task<List<Student>> GetStudentByFamilyId(int familyId)
-        {
+            
             if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
             {
                 HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 return null;
             }
-            return await IStudentBL.GetStudentByFamilyId(familyId);
-        }
-
-        //GET
-        [HttpGet("route/{routeId}")]
-        public async Task<List<Student>> GetStudentByRouteId(int routeId)
-        {
-            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver)))
-            {
-                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                return null;
-            }
-            return await IStudentBL.GetStudentByRouteId(routeId);
-        }
-
-        // POST api/<StudentController>
-        [Consumes("multipart/form-data")]
-        [HttpPost]
-        public async Task<Student> Post([FromForm] Student student)
-        {
-            //if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
-            //{
-            //    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            //    return null;
-            //}
             return await IStudentBL.AddNewStudent(student);
         }
 
@@ -109,8 +78,30 @@ namespace SchoolBus.Controllers
             }
             await IStudentBL.changeStudentDetails(id, studentToUpdate);
         }
-
-
+        [HttpPost("image/{id}")]
+        public async Task<bool> PutImage(int id)
+        {
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            {
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return false;
+            }
+            var f = Request.Form.Files["file"];
+            string filePath = Path.GetFullPath("Images/" +Convert.ToString(id)+".png");
+            try
+            {
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    await f.CopyToAsync(stream);
+                    return await IStudentBL.saveImage(id, Convert.ToString(id));
+                    
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         // DELETE api/<DriverController>/5
         [HttpDelete("{id}")]
         public async Task Delete(int id)
@@ -122,6 +113,38 @@ namespace SchoolBus.Controllers
             }
             await IStudentBL.removeStudent(id);
         }
+
+        //return the count of the student in a station
+        [HttpGet("count/{routeId}/{stationId}")]
+        public async Task<int> GetCountOfStudentsBystationId(int stationId, int routeId)
+        {
+            return await IStudentBL.GetCountOfStudentsBystationId(stationId,  routeId);
+        }
+
+
+        [HttpGet("family/{familyId}")]
+        public async Task<List<Student>> GetStudentByFamilyId(int familyId)
+        {
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Family)))
+            {
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return null;
+            }
+            return await IStudentBL.GetStudentByFamilyId(familyId);
+        }
+
+        [HttpGet("route/{routeId}")]
+        public async Task<List<Student>> GetStudentByRouteId(int routeId)
+        {
+            if (!(_IAuthorizationFuncs.isAthorized(Convert.ToInt16(HttpContext.User.Identity.Name), (int)UserTypeEnum.Driver)))
+            {
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return null;
+            }
+            return await IStudentBL.GetStudentByRouteId(routeId);
+        }
+
+
 
     }
 }

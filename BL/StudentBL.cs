@@ -2,6 +2,7 @@
 using Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,9 @@ namespace BL
         public async Task<int> GetCountOfStudentsBystationId(int stationId, int routeId)
 
         {
-            return await IStudentDL.GetCountOfStudentsBystationId(stationId,  routeId);
+            return await IStudentDL.GetCountOfStudentsBystationId(stationId, routeId);
         }
-      
+
         public async Task<List<Student>> GetAllStudents()
         {
             return await IStudentDL.GetAllStudents();
@@ -28,7 +29,12 @@ namespace BL
 
         public async Task<Student> GetStudentById(int id)
         {
-            return await IStudentDL.GetStudentById(id);
+            Student s = await IStudentDL.GetStudentById(id);
+            string path = Path.GetFullPath("Images/" + Convert.ToString(id)+ ".png");
+            var array = File.ReadAllBytes(path);
+            s.Passport = Convert.ToBase64String(array, 0, array.Length);
+            return s;
+
         }
         public async Task<Student> AddNewStudent(Student student)
         {
@@ -37,11 +43,24 @@ namespace BL
         }
         public async Task<List<Student>> GetStudentByFamilyId(int familyId)
         {
-            return await IStudentDL.GetStudentByFamilyId(familyId);
+            List<Student> students = await IStudentDL.GetStudentByFamilyId(familyId);
+            foreach (Student s in students)
+            {
+                string path = Path.GetFullPath("Images/" + Convert.ToString(s.Id)+ ".png");
+                var array = File.ReadAllBytes(path);
+                s.Passport = Convert.ToBase64String(array, 0, array.Length);
+            }
+            return students;
+
         }
         public async Task changeStudentDetails(int id, Student studentToUpdate)
         {
-           await IStudentDL.changeStudentDetails(id, studentToUpdate);
+            await IStudentDL.changeStudentDetails(id, studentToUpdate);
+        }
+        public async Task<bool> saveImage(int id, string path)
+        {
+            return await IStudentDL.saveImage(id, path);
+
         }
         public async Task removeStudent(int id)
         {
@@ -49,7 +68,14 @@ namespace BL
         }
         public async Task<List<Student>> GetStudentByRouteId(int routeId)
         {
-            return await IStudentDL.GetStudentByRouteId(routeId);
+            List<Student> students = await IStudentDL.GetStudentByRouteId(routeId);
+            foreach (Student s in students)
+            {
+                string path = Path.GetFullPath("Images/" + Convert.ToString(s.Id)+ ".png");
+                var array = File.ReadAllBytes(path);
+                s.Passport = Convert.ToBase64String(array, 0, array.Length);
+            }
+            return students;
         }
     }
 }
